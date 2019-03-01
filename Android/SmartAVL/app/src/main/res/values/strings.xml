@@ -1,4 +1,99 @@
 <resources>
-    <string name="app_name">SmartAVL</string>
+    <string name="app_name">Smart AVL</string>
+    <string name="title_activity_main">Main</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_log">Console</string>
+    <string name="title_activity_splash">Splash</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="large_text">
+        " [15:21:23] Connected to vehicle\n"
+        "[15:21:26] Vehicle came to a complete stop\n"
+        "[15:21:32] Vehicle is accelerating [Speed: 32 km/h]\n"
+        "[15:21:33] Vehicle has stopped accelerating [Speed: 41 km/h]\n"
+        "[15:21:45] Low fuel light has turned on\n"
+        "[15:21:51] Brakes have been applied [Speed: 36 km/h]\n"
+        "[15:21:55] Brakes have been released [Speed: 18 km/h]\n"
+        "[15:21:58] Windshield wipers have been turned on\n"
+        "[15:22:02] Windshield sprayer has been activated\n"
+        "[15:22:11] Windshield wipers have been turned off\n"
+        "[15:22:23] Vehicle is accelerating [Speed: 24 km/h]\n"
+        "[15:22:27] Vehicle has stopped accelerating [Speed: 58 km/h]\n"
+        "[15:22:30] Headlights have been turned on\n"
+        "[15:22:35] High beams have been turned on\n"
+        "[15:22:38] Vehicle is accelerating [Speed: 65 km/h]\n"
+        "[15:22:49] Brakes have been applied [Speed: 104 km/h]\n"
+        "[15:22:51] Driver airbag has deployed\n"
+        "[15:22:51] Passenger airbag has deployed\n"
+        "[15:23:07] Driver seatbelt has been released\n"
+        "[15:23:10] Vehicle has been turned off\n"
+        "[15:23:10] Disconnected from vehicle\n"
+        "[18:21:23] Connected to vehicle\n"
+        "[18:21:26] Vehicle came to a complete stop\n"
+        "[18:21:32] Vehicle is accelerating [Speed: 32 km/h]\n"
+        "[18:21:33] Vehicle has stopped accelerating [Speed: 41 km/h]\n"
+        "[18:21:45] Low fuel light has turned on\n"
+        "[18:21:51] Brakes have been applied [Speed: 36 km/h]\n"
+        "[18:21:55] Brakes have been released [Speed: 18 km/h]\n"
+        "[18:21:58] Windshield wipers have been turned on\n"
+        "[18:22:02] Windshield sprayer has been activated\n"
+        "[18:22:11] Windshield wipers have been turned off\n"
+        "[18:22:23] Vehicle is accelerating [Speed: 24 km/h]\n"
+        "[18:22:27] Vehicle has stopped accelerating [Speed: 58 km/h]\n"
+        "[18:22:30] Headlights have been turned on\n"
+        "[18:22:35] High beams have been turned on\n"
+        "[18:22:38] Vehicle is accelerating [Speed: 65 km/h]\n"
+        "[18:22:49] Brakes have been applied [Speed: 104 km/h]\n"
+        "[18:22:51] Driver airbag has deployed\n"
+        "[18:22:51] Passenger airbag has deployed\n"
+        "[18:23:07] Driver seatbelt has been released\n"
+        "[18:23:10] Vehicle has been turned off\n"
+        "[18:23:10] Disconnected from vehicle\n"
+        "[22:21:23] Connected to vehicle\n"
+        "[22:21:26] Vehicle came to a complete stop\n"
+        "[22:21:32] Vehicle is accelerating [Speed: 32 km/h]\n"
+        "[22:21:33] Vehicle has stopped accelerating [Speed: 41 km/h]\n"
+        "[22:21:45] Low fuel light has turned on\n"
+        "[22:21:51] Brakes have been applied [Speed: 36 km/h]\n"
+        "[22:21:55] Brakes have been released [Speed: 18 km/h]\n"
+        "[22:21:58] Windshield wipers have been turned on\n"
+        "[22:22:02] Windshield sprayer has been activated\n"
+        "[22:22:11] Windshield wipers have been turned off\n"
+        "[22:22:23] Vehicle is accelerating [Speed: 24 km/h]\n"
+        "[22:22:27] Vehicle has stopped accelerating [Speed: 58 km/h]\n"
+        "[22:22:30] Headlights have been turned on\n"
+        "[22:22:35] High beams have been turned on\n"
+        "[22:22:38] Vehicle is accelerating [Speed: 65 km/h]\n"
+        "[22:22:49] Brakes have been applied [Speed: 104 km/h]\n"
+        "[22:22:51] Driver airbag has deployed\n"
+        "[22:22:51] Passenger airbag has deployed\n"
+        "[22:23:07] Driver seatbelt has been released\n"
+        "[22:23:10] Vehicle has been turned off\n"
+        "[22:23:10] Disconnected from vehicle\n"
+    </string>
+    <string name="action_settings">Settings</string>
+    <string name="title_main">Main</string>
+    <string name="title_map">Location</string>
+    <string name="title_log">Log</string>
+    <string name="map_latitude">Latitude:</string>
+    <string name="map_longitude">Longitude:</string>
+    <string name="map_marker_title">Current Vehicle Location</string>
+    <string name="ignition_on">ON</string>
+    <string name="ignition_off">OFF</string>
+    <string name="lock_locked">Locked</string>
+    <string name="lock_unlocked">Unlocked</string>
+    <string name="speed">100 km/h</string>
+    <string name="rpm">3000 RPM</string>
+    <string name="fuel">100%</string>
+    <string name="battery_good">Good</string>
+    <string name="battery_low">Low</string>
+    <string name="headlights_title">Headlights:</string>
+    <string name="headlights_on">ON</string>
+    <string name="headlights_off">OFF</string>
+    <string name="high_beams_title">High Beams:</string>
+    <string name="high_beams_on">ON</string>
+    <string name="high_beams_off">OFF</string>
+    <string name="check_engine_title">Check Engine:</string>
+    <string name="check_engine_on">ON</string>
+    <string name="check_engine_off">OFF</string>
 </resources>
