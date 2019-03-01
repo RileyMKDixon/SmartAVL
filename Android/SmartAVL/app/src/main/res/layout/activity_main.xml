@@ -21,14 +21,108 @@
     </android.support.design.widget.BottomNavigationView>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/splash_background_accent"
+        app:layout_constraintTop_toBottomOf="@+id/navigation">
+
+        <TextView
+            android:id="@+id/year_title_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/year_title"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/make_title_textView"
+            app:layout_constraintTop_toBottomOf="@+id/make_title_textView" />
+
+        <TextView
+            android:id="@+id/make_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/make"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/make_title_textView"
+            app:layout_constraintTop_toTopOf="@+id/make_title_textView" />
+
+        <TextView
+            android:id="@+id/year_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/year"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/make_textView"
+            app:layout_constraintTop_toTopOf="@+id/year_title_textView" />
+
+        <TextView
+            android:id="@+id/status_title_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/status_title"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/model_title_textView"
+            app:layout_constraintTop_toTopOf="@+id/year_textView" />
+
+        <TextView
+            android:id="@+id/status_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/status_connected"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/model_textView"
+            app:layout_constraintTop_toTopOf="@+id/status_title_textView" />
+
+        <TextView
+            android:id="@+id/model_title_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="200dp"
+            android:text="@string/model_title"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/make_title_textView"
+            app:layout_constraintTop_toTopOf="@+id/make_title_textView" />
+
+        <TextView
+            android:id="@+id/make_title_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/make_title"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/model_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/model"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/model_title_textView"
+            app:layout_constraintTop_toTopOf="@+id/model_title_textView" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/splash_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/navigation">
+        tools:layout_editor_absoluteY="256dp"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
         <ImageView
             android:id="@+id/imageView8"
@@ -80,7 +174,7 @@
         android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/splash_background_accent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
         <TextView
@@ -172,7 +266,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/constraintLayout5"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/splash_background"
@@ -250,8 +344,8 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        android:background="@color/splash_background_accent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
 
         <ImageView
             android:id="@+id/imageView9"

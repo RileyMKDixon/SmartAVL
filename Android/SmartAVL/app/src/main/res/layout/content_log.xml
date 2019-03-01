@@ -9,11 +9,12 @@
     tools:showIn="@layout/activity_log">
 
     <TextView
+        android:id="@+id/log_content_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:lineSpacingExtra="4sp"
-        android:text="@string/large_text"
+        android:text="@string/sample_log_text"
         android:textColor="@android:color/white"
         android:textSize="10sp"
         android:typeface="monospace" />

@@ -2,15 +2,14 @@ package ece492.smartavl;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.MenuItem;
 import android.widget.TextView;
 
 public class MainActivity extends MainNavigationActivity {
 
+    private TextView make_textView;
+    private TextView model_textView;
+    private TextView year_textView;
+    private TextView status_textView;
     private TextView ignition_textView;
     private TextView lock_textView;
     private TextView speed_textView;
@@ -19,8 +18,10 @@ public class MainActivity extends MainNavigationActivity {
     private TextView battery_textView;
     private TextView headlights_textView;
     private TextView high_beams_textView;
-    private TextView check_enine_textView;
+    private TextView check_engine_textView;
 
+    public static final int STATUS_DISCONNECTED = 0x00;
+    public static final int STATUS_CONNECTED = 0x01;
     public static final int IGNITION_OFF = 0x10;
     public static final int IGNITION_ON = 0x11;
     public static final int LOCK_UNLOCKED = 0x20;
@@ -57,6 +58,10 @@ public class MainActivity extends MainNavigationActivity {
 
         navigation.setSelectedItemId(R.id.navigation_main);
 
+        make_textView = findViewById(R.id.make_textView);
+        model_textView = findViewById(R.id.model_textView);
+        year_textView = findViewById(R.id.year_textView);
+        status_textView = findViewById(R.id.status_textView);
         ignition_textView = findViewById(R.id.ignition_textView);
         lock_textView = findViewById(R.id.lock_textView);
         speed_textView = findViewById(R.id.speed_textView);
@@ -65,7 +70,35 @@ public class MainActivity extends MainNavigationActivity {
         battery_textView = findViewById(R.id.battery_textView);
         headlights_textView = findViewById(R.id.headlight_textView);
         high_beams_textView = findViewById(R.id.high_beam_textView);
-        check_enine_textView = findViewById(R.id.check_engine_textView);
+        check_engine_textView = findViewById(R.id.check_engine_textView);
+    }
+
+    public void setMake(String make) {
+        make_textView.setText(make);
+        make_textView.invalidate();
+    }
+
+    public void setModel(String model) {
+        model_textView.setText(model);
+        model_textView.invalidate();
+    }
+
+    public void setYear(int year) {
+        year_textView.setText(String.valueOf(year));
+        year_textView.invalidate();
+    }
+
+    public boolean setConnectionStatus(int status) {
+        if (status == STATUS_DISCONNECTED){
+            status_textView.setText(getString(R.string.status_disconnected));
+            status_textView.invalidate();
+            return true;
+        }else if (status == STATUS_CONNECTED){
+            status_textView.setText(getString(R.string.status_connected));
+            status_textView.invalidate();
+            return true;
+        }
+        return false;
     }
 
     public boolean setIgnitionStatus(int status) {
@@ -163,12 +196,12 @@ public class MainActivity extends MainNavigationActivity {
 
     public boolean setCheckEngineStatus(int status) {
         if (status == CHECK_ENGINE_OFF){
-            check_enine_textView.setText(getString(R.string.check_engine_off));
-            check_enine_textView.invalidate();
+            check_engine_textView.setText(getString(R.string.check_engine_off));
+            check_engine_textView.invalidate();
             return true;
         }else if (status == CHECK_ENGINE_ON){
-            check_enine_textView.setText(getString(R.string.check_engine_on));
-            check_enine_textView.invalidate();
+            check_engine_textView.setText(getString(R.string.check_engine_on));
+            check_engine_textView.invalidate();
             return true;
         }
         return false;

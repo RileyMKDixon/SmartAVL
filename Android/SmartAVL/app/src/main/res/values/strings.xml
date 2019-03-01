@@ -6,7 +6,7 @@
     <string name="title_activity_splash">Splash</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="large_text">
+    <string name="sample_log_text">
         " [15:21:23] Connected to vehicle\n"
         "[15:21:26] Vehicle came to a complete stop\n"
         "[15:21:32] Vehicle is accelerating [Speed: 32 km/h]\n"
@@ -78,6 +78,15 @@
     <string name="map_latitude">Latitude:</string>
     <string name="map_longitude">Longitude:</string>
     <string name="map_marker_title">Current Vehicle Location</string>
+    <string name="make_title">Make:</string>
+    <string name="make">Lexus</string>
+    <string name="model_title">Model:</string>
+    <string name="model">ES300h</string>
+    <string name="year_title">Year:</string>
+    <string name="year">2016</string>
+    <string name="status_title">Status:</string>
+    <string name="status_connected">Connected</string>
+    <string name="status_disconnected">Not Connected</string>
     <string name="ignition_on">ON</string>
     <string name="ignition_off">OFF</string>
     <string name="lock_locked">Locked</string>

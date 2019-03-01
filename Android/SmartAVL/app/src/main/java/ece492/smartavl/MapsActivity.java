@@ -26,6 +26,8 @@ public class MapsActivity extends MainNavigationActivity implements OnMapReadyCa
     private TextView latitudeTextView;
     private TextView longitudeTextView;
 
+    private static final float DEFAULT_ZOOM = 15.0f;
+
     protected void onMainSelected() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -81,7 +83,7 @@ public class MapsActivity extends MainNavigationActivity implements OnMapReadyCa
         marker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory
                 .fromResource(R.drawable.map_marker_icon)).position(location)
                 .title(getString(R.string.map_marker_title)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, DEFAULT_ZOOM));
         latitudeTextView.setText(String.valueOf(lat));
         longitudeTextView.setText(String.valueOf(lon));
         latitudeTextView.invalidate();
@@ -97,7 +99,7 @@ public class MapsActivity extends MainNavigationActivity implements OnMapReadyCa
         latitudeTextView.invalidate();
         longitudeTextView.invalidate();
         if (moveCamera) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, DEFAULT_ZOOM));
         }
     }
 
