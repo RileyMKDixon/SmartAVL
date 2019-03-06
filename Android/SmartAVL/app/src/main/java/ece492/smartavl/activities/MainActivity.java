@@ -1,8 +1,10 @@
-package ece492.smartavl;
+package ece492.smartavl.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import ece492.smartavl.R;
 
 public class MainActivity extends MainNavigationActivity {
 

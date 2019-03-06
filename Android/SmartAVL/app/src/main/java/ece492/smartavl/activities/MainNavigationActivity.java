@@ -1,13 +1,12 @@
-package ece492.smartavl;
+package ece492.smartavl.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import ece492.smartavl.R;
 
 public abstract class MainNavigationActivity extends AppCompatActivity {
 

@@ -1,18 +1,15 @@
-package ece492.smartavl;
+package ece492.smartavl.activities;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.ProgressBar;
+
+import ece492.smartavl.R;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -54,7 +51,11 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                onProgressBarFinished();
+                if (progressBar.getProgress() == progressBar.getMax()){
+                    onProgressBarFinished();
+                }else{
+                    onProgressBarStopped(progressBar.getProgress());
+                }
             }
 
             @Override
@@ -71,6 +72,10 @@ public class SplashActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void onProgressBarStopped(int progress) {
+        // TODO: Trigger intermediate loading steps such as bluetooth searching, pairing, checking status, etc.
     }
 
 
