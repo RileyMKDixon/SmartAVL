@@ -1,0 +1,9 @@
+# Autorun
+
+This directory contains scripts to be run as soon as the
+Raspberry Pi starts up. This behaviour can be configured
+by running "crontab -e" and appending lines which start
+with @reboot.
+
+For example:
+@reboot sudo ~/SmartAVL/Raspberry\ Pi/Autorun/vcan_setup.sh
