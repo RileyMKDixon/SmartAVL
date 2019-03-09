@@ -1,4 +1,4 @@
-# canencoder.py
+# canencoder.py:
 # Defines a CANEncoder class which is used to serialize a CAN
 # message into a JSON string.
 

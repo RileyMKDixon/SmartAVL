@@ -1,6 +1,6 @@
 # canspam.py:
-# spams messages to default CAN bus
-# (specified in python-can configuration file)
+# Spams messages to the default CAN bus.
+# (Default bus is specified in python-can configuration file)
 
 import can
 import time
