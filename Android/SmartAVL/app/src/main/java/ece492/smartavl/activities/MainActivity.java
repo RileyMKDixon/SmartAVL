@@ -59,6 +59,8 @@ public class MainActivity extends MainNavigationActivity {
         headlights_textView = findViewById(R.id.headlight_textView);
         high_beams_textView = findViewById(R.id.high_beam_textView);
         check_engine_textView = findViewById(R.id.check_engine_textView);
+
+        updateDisplay();
     }
 
     protected void updateDisplay() {

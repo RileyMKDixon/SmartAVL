@@ -35,6 +35,8 @@ public class LogActivity extends MainNavigationActivity {
         navigation.setSelectedItemId(R.id.navigation_log);
 
         log_textView = findViewById(R.id.log_content_textView);
+
+        updateDisplay();
     }
 
     protected void updateDisplay() {
