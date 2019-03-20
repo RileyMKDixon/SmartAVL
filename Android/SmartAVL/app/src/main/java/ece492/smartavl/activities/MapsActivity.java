@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import ece492.smartavl.R;
+import ece492.smartavl.data.VehicleData;
 
 public class MapsActivity extends MainNavigationActivity implements OnMapReadyCallback {
 
@@ -73,10 +74,10 @@ public class MapsActivity extends MainNavigationActivity implements OnMapReadyCa
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        setInitialLocation(-34, 151);
+        setInitialLocation(VehicleData.getLatitude(), VehicleData.getLongitude());
     }
 
-    public void setInitialLocation(int lat, int lon) {
+    public void setInitialLocation(double lat, double lon) {
         LatLng location = new LatLng(lat, lon);
         marker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory
                 .fromResource(R.drawable.map_marker_icon)).position(location)
@@ -89,7 +90,7 @@ public class MapsActivity extends MainNavigationActivity implements OnMapReadyCa
     }
 
 
-    public void updateLocation(int lat, int lon, boolean moveCamera) {
+    public void updateLocation(double lat, double lon, boolean moveCamera) {
         LatLng location = new LatLng(lat, lon);
         marker.setPosition(location);
         latitudeTextView.setText(String.valueOf(lat));
@@ -99,6 +100,11 @@ public class MapsActivity extends MainNavigationActivity implements OnMapReadyCa
         if (moveCamera) {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, DEFAULT_ZOOM));
         }
+    }
+
+
+    protected void updateDisplay() {
+        updateLocation(VehicleData.getLatitude(), VehicleData.getLongitude(), false);
     }
 
 

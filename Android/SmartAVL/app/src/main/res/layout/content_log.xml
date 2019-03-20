@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:lineSpacingExtra="4sp"
-        android:text="@string/sample_log_text"
         android:textColor="@android:color/white"
         android:textSize="10sp"
         android:typeface="monospace" />

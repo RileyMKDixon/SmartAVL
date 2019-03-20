@@ -33,7 +33,7 @@
             android:layout_marginStart="8dp"
             android:text="0000"
             android:textColor="@android:color/white"
-            android:textSize="24sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/latitude_textView"
             app:layout_constraintTop_toTopOf="@+id/latitude_textView" />
 
@@ -44,7 +44,7 @@
             android:layout_marginStart="8dp"
             android:text="0000"
             android:textColor="@android:color/white"
-            android:textSize="24sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/longitude_textView"
             app:layout_constraintTop_toTopOf="@+id/longitude_textView" />
 
@@ -66,7 +66,7 @@
             android:layout_marginBottom="8dp"
             android:text="@string/map_latitude"
             android:textColor="@android:color/white"
-            android:textSize="24sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -74,10 +74,10 @@
             android:id="@+id/longitude_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="120dp"
             android:text="@string/map_longitude"
             android:textColor="@android:color/white"
-            android:textSize="24sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/latitude_textView"
             app:layout_constraintTop_toTopOf="@+id/latitude_textView" />
     </android.support.constraint.ConstraintLayout>

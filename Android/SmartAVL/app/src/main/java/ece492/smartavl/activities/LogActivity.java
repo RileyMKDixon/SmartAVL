@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import java.time.LocalDateTime;
-
 import ece492.smartavl.R;
+import ece492.smartavl.data.VehicleLog;
 
 public class LogActivity extends MainNavigationActivity {
 
@@ -38,22 +37,8 @@ public class LogActivity extends MainNavigationActivity {
         log_textView = findViewById(R.id.log_content_textView);
     }
 
-    private void appendLogContent(String additionalContent) {
-        setLogContent(log_textView.getText() + "\n" + additionalContent);
-    }
-
-    public void log(String str) {
-        LocalDateTime date = LocalDateTime.now();
-        int hour = date.getHour();
-        int minute = date.getMinute();
-        int second = date.getSecond();
-        String timestamp = String.format("[%02d:%02d:%02d]", hour, minute, second);
-        String logString = timestamp + " " + str;
-        appendLogContent(logString);
-    }
-
-    public void clearLog() {
-        setLogContent("");
+    protected void updateDisplay() {
+        setLogContent(VehicleLog.getLogAsString());
     }
 
     public String getLogContent() {
