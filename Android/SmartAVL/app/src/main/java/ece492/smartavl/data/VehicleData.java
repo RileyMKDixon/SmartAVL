@@ -25,6 +25,7 @@ public class VehicleData {
     public static final int BLUETOOTH_NO_PAIRED_DEVICES = 3;
     public static final int BLUETOOTH_CONNECTION_FAILED = 4;
     public static final int BLUETOOTH_CONNECTION_DISCONNECTED = 5;
+    public static final int BLUETOOTH_SETUP_TIMEOUT = 6;
 
     private static int bluetoothStatus = BLUETOOTH_NOT_INITIALIZED;
 

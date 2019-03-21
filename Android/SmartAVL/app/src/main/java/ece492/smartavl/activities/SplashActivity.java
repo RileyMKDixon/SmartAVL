@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
 import android.os.ParcelUuid;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
@@ -37,8 +39,12 @@ public class SplashActivity extends AppCompatActivity {
     private ProgressBarAnimation anim0;
     private ProgressBarAnimation anim1;
     private ProgressBarAnimation anim2;
+    private ProgressBarAnimation reverseanim;
+    private ProgressBarAnimation singleanim;
     private Set<BluetoothDevice> pairedDevices;
     private ArrayList<BluetoothDevice> failedToConnectDevices;
+
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +61,8 @@ public class SplashActivity extends AppCompatActivity {
         anim0 = new ProgressBarAnimation(progressBar, 0, 33);
         anim1 = new ProgressBarAnimation(progressBar, 33, 66);
         anim2 = new ProgressBarAnimation(progressBar, 66, 100);
-
+        reverseanim = new ProgressBarAnimation(progressBar, 66, 0);
+        singleanim = new ProgressBarAnimation(progressBar, 0, 100);
 
         BluetoothWrapper.setBluetoothAdapter(BluetoothAdapter.getDefaultAdapter());
         pairedDevices = BluetoothWrapper.getBluetoothAdapter().getBondedDevices();
@@ -98,6 +105,10 @@ public class SplashActivity extends AppCompatActivity {
         anim1.setDuration(segmentDuration);
         anim2.setAnimationListener(animationListener);
         anim2.setDuration(segmentDuration);
+        reverseanim.setAnimationListener(animationListener);
+        reverseanim.setDuration(segmentDuration * 4);
+        singleanim.setAnimationListener(animationListener);
+        singleanim.setDuration(segmentDuration * 3);
         progressBar.startAnimation(anim0);
     }
 
@@ -113,6 +124,8 @@ public class SplashActivity extends AppCompatActivity {
             loadingSection1();
         }else if (progress == 66){
             loadingSection2();
+        }else if (progress == 0){
+            startWithoutBluetooth();
         }
     }
 
@@ -123,14 +136,52 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void loadingSection2() {
-        // Wait for Bluetooth status flag to change
-        while(VehicleData.getBluetoothStatus() == VehicleData.BLUETOOTH_NOT_INITIALIZED){
-            // do nothing
+        final int REFRESH_DELAY = 500; // milliseconds
+        Date startDate = new Date();
+        final long startTimeMillis = startDate.getTime();
+        // Wait for Bluetooth status flag to change, with timeout
+        handler.postDelayed(new Runnable(){
+            public void run(){
+                boolean exit = waitOnBluetoothSetup(startTimeMillis);
+                if (exit){
+                    endBluetoothSetup();
+                }else{
+                    handler.postDelayed(this, REFRESH_DELAY);
+                }
+            }
+        }, REFRESH_DELAY);
+    }
+
+    private void startWithoutBluetooth() {
+        Toast.makeText(getApplicationContext(), "Starting without Smart AVL Connection...", Toast.LENGTH_SHORT).show();
+        progressBar.startAnimation(singleanim);
+    }
+
+    private boolean waitOnBluetoothSetup(long startTimeMillis) {
+        long pauseLoadingDuration = 2500; // milliseconds
+        long timeoutDuration = 20000; // milliseconds
+        long indefiniteLoadingStartTime = startTimeMillis + pauseLoadingDuration;
+        long timeoutTime = startTimeMillis + timeoutDuration;
+        if (VehicleData.getBluetoothStatus() == VehicleData.BLUETOOTH_NOT_INITIALIZED){
+            Date currentDate = new Date();
+            if (currentDate.getTime() > timeoutTime){
+                VehicleData.setBluetoothStatus(VehicleData.BLUETOOTH_SETUP_TIMEOUT);
+            }else if (currentDate.getTime() > indefiniteLoadingStartTime){
+                progressBar.setIndeterminate(true);
+                Toast.makeText(getApplicationContext(), "Searching for SmartAVL Device...", Toast.LENGTH_LONG).show();
+            }
+            return false;
         }
-        if (VehicleData.getBluetoothStatus() == VehicleData.BLUETOOTH_SETUP_COMPLETE){ // Bluetooth successfully connected
+        progressBar.setIndeterminate(false);
+        return true;
+    }
+
+    private void endBluetoothSetup() {
+        if (VehicleData.getBluetoothStatus() == VehicleData.BLUETOOTH_SETUP_COMPLETE){
             progressBar.startAnimation(anim2);
         }else{
             displayBluetoothError(VehicleData.getBluetoothStatus());
+            progressBar.startAnimation(reverseanim);
         }
     }
 
@@ -152,7 +203,6 @@ public class SplashActivity extends AppCompatActivity {
                         CommHandler commHandler = new CommHandler(
                                 BluetoothWrapper.getConnectedDevice(),
                                 BluetoothWrapper.getHandler());
-                        commHandler.run();
                         BluetoothWrapper.setCommHandler(commHandler);
                         VehicleData.setBluetoothStatus(VehicleData.BLUETOOTH_SETUP_COMPLETE);
                     }
@@ -194,14 +244,18 @@ public class SplashActivity extends AppCompatActivity {
         String errorMessage;
         if (statusCode == VehicleData.BLUETOOTH_NOT_INITIALIZED){
             errorMessage = "Error: Bluetooth not initialized";
-        }else if (statusCode == VehicleData.BLUETOOTH_NOT_SUPPORTED){
-            errorMessage = "Error: Bluetooth not suported on this device";
+        }else if (statusCode == VehicleData.BLUETOOTH_NOT_SUPPORTED) {
+            errorMessage = "Error: Bluetooth not supported on this device";
+        }else if (statusCode == VehicleData.BLUETOOTH_NOT_ENABLED){
+            errorMessage = "Error: Bluetooth not enabled on this device";
         }else if (statusCode == VehicleData.BLUETOOTH_NO_PAIRED_DEVICES) {
             errorMessage = "Error: There is nothing paired to this device";
         }else if (statusCode == VehicleData.BLUETOOTH_CONNECTION_FAILED) {
             errorMessage = "Error: Failed to connect to Bluetooth device";
-        }else if (statusCode == VehicleData.BLUETOOTH_CONNECTION_DISCONNECTED){
+        }else if (statusCode == VehicleData.BLUETOOTH_CONNECTION_DISCONNECTED) {
             errorMessage = "Error: Bluetooth disconnected during setup process";
+        }else if (statusCode == VehicleData.BLUETOOTH_SETUP_TIMEOUT) {
+            errorMessage = "Error: Could not find Smart AVL device";
         }else{
             errorMessage = "Error: An unrecognized error has occurred";
         }
