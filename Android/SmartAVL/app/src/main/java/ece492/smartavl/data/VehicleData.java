@@ -18,6 +18,15 @@ public class VehicleData {
     public static final int CHECK_ENGINE_OFF = 0x60;
     public static final int CHECK_ENGINE_ON = 0x61;
 
+    public static final int BLUETOOTH_NOT_INITIALIZED = -1;
+    public static final int BLUETOOTH_SETUP_COMPLETE = 0;
+    public static final int BLUETOOTH_NOT_SUPPORTED = 1;
+    public static final int BLUETOOTH_NOT_ENABLED = 2;
+    public static final int BLUETOOTH_NO_PAIRED_DEVICES = 3;
+    public static final int BLUETOOTH_CONNECTION_FAILED = 4;
+
+    public static int BLUETOOTH_STATUS;
+
 
     private static String vehicleMake = "Unknown";
     private static String vehicleModel = "Unknown";

@@ -2,10 +2,14 @@ package ece492.smartavl.activities;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.ParcelUuid;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -38,6 +42,8 @@ public class SplashActivity extends AppCompatActivity {
     private ProgressBarAnimation anim0;
     private ProgressBarAnimation anim1;
     private ProgressBarAnimation anim2;
+    private Set<BluetoothDevice> pairedDevices;
+    private ArrayList<BluetoothDevice> failedToConnectDevices;
     int SETUP_RESULT = -1;
 
     @Override
@@ -55,6 +61,12 @@ public class SplashActivity extends AppCompatActivity {
         anim0 = new ProgressBarAnimation(progressBar, 0, 33);
         anim1 = new ProgressBarAnimation(progressBar, 33, 66);
         anim2 = new ProgressBarAnimation(progressBar, 66, 100);
+
+
+        BluetoothWrapper.setBluetoothAdapter(BluetoothAdapter.getDefaultAdapter());
+        pairedDevices = BluetoothWrapper.getBluetoothAdapter().getBondedDevices();
+        failedToConnectDevices = new ArrayList<BluetoothDevice>();
+
 
     }
 
@@ -124,46 +136,60 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if(BluetoothDevice.ACTION_FOUND.equals(action)){
+                //Device Found!
+                BluetoothDevice btDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                String deviceName = btDevice.getName();
+                String deviceHardwareAddress = btDevice.getAddress();
+                Log.i("BT_DEVICE_FOUND", "Device Name: " + deviceName);
+                Log.i("BT_DEVICE_FOUND", "Device Address: " + deviceHardwareAddress);
+
+                if(pairedDevices.contains(btDevice)){
+                    if(!failedToConnectDevices.contains(btDevice)){
+                        BluetoothWrapper.setConnectedDevice(new BTDeviceData(btDevice));
+                        CommHandler commHandler = new CommHandler(
+                                BluetoothWrapper.getConnectedDevice(),
+                                BluetoothWrapper.getHandler());
+                        BluetoothWrapper.setCommHandler(commHandler);
+
+                    }
+                }else{
+                    failedToConnectDevices.add(btDevice);
+                }
+
+            }
+        }
+    };
+
     private int setupBluetooth() {
-        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         BluetoothDevice connectedDevice;
         BTDeviceData connectedDeviceData;
         CommHandler commHandler;
 
 
-        if (bluetoothAdapter == null){
+        if (BluetoothWrapper.getBluetoothAdapter() == null){
             // Device does not support Bluetooth
             return BLUETOOTH_NOT_SUPPORTED;
         }
-        if (!bluetoothAdapter.isEnabled()){
+        if (!BluetoothWrapper.getBluetoothAdapter().isEnabled()){
             // Bluetooth is not enabled on device
             return BLUETOOTH_NOT_ENABLED;
         }
-        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-        if (pairedDevices.size() > 0){
-            ArrayList<BTDeviceData> btDeviceDataArrayList = new ArrayList<>();
-            for (BluetoothDevice device : pairedDevices){
 
-                // TODO: find Raspberry Pi, and set connectedDevice to it
 
-            }
-        }else{
-            // There are no paired Bluetooth devices
+
+        if (!(pairedDevices.size() > 0)){
             return BLUETOOTH_NO_PAIRED_DEVICES;
         }
 
-        // TODO: resolve connectedDevice
+        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        BluetoothWrapper.getBluetoothAdapter().startDiscovery();
+        registerReceiver(receiver, filter);
 
-        // create connectedDeviceData from connectedDevice
-        connectedDeviceData = new BTDeviceData(connectedDevice);
-        // set up CommHandler using connectedDeviceData
-        commHandler = new CommHandler(connectedDeviceData, handler);
-
-        // Save static instances of bluetoothAdapter and commHandler in BluetoothWrapper, so they are globally available
-        BluetoothWrapper.setBluetoothAdapter(bluetoothAdapter);
-        BluetoothWrapper.setCommHandler(commHandler);
-
-        // Bluetooth successfully set up
         return BLUETOOTH_SETUP_COMPLETE;
     }
 
@@ -201,6 +227,13 @@ public class SplashActivity extends AppCompatActivity {
             float value = from + (to - from) * interpolatedTime;
             progressBar.setProgress((int) value);
         }
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        unregisterReceiver(receiver);
+        BluetoothWrapper.getBluetoothAdapter().cancelDiscovery();
     }
 
 }

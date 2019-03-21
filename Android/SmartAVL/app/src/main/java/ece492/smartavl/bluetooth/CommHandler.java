@@ -1,6 +1,11 @@
 package ece492.smartavl.bluetooth;
 
+import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -9,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.Set;
 
 public class CommHandler extends Thread {
 
@@ -22,6 +28,7 @@ public class CommHandler extends Thread {
     private BluetoothSocket serverSocket;
     private InputStream readStream;
     private OutputStream writeStream;
+    private Context bluetoothContext;
 
     private Handler handler; //facilitate communication between the entity and view classes
 
@@ -38,6 +45,7 @@ public class CommHandler extends Thread {
             e.printStackTrace();
         }
     }
+
 
     public void run(){
         byte[] readerBuffer = new byte[bufferSize];
@@ -75,6 +83,7 @@ public class CommHandler extends Thread {
         }
 
     }
+
 
     public void cancel(){
         try{
