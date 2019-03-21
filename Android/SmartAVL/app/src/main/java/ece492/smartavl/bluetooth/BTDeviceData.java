@@ -2,6 +2,7 @@ package ece492.smartavl.bluetooth;
 
 import android.bluetooth.BluetoothDevice;
 import android.os.Parcel;
+import android.os.ParcelUuid;
 import android.os.Parcelable;
 
 import java.util.Objects;

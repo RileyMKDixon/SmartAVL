@@ -85,4 +85,8 @@ public class CommHandler extends Thread {
 
     }
 
+    public BTDeviceData getConnectedDevice() {
+        return connectedDevice;
+    }
+
 }

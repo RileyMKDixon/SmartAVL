@@ -1,6 +1,9 @@
 package ece492.smartavl.activities;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.os.ParcelUuid;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -10,8 +13,14 @@ import android.view.animation.Transformation;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.UUID;
+
 import ece492.smartavl.R;
+import ece492.smartavl.bluetooth.BTDeviceData;
 import ece492.smartavl.bluetooth.BluetoothWrapper;
+import ece492.smartavl.bluetooth.CommHandler;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -19,11 +28,16 @@ import ece492.smartavl.bluetooth.BluetoothWrapper;
  */
 public class SplashActivity extends AppCompatActivity {
 
+    private static final int BLUETOOTH_NOT_INITIALIZED = -1;
+    private static final int BLUETOOTH_SETUP_COMPLETE = 0;
+    private static final int BLUETOOTH_NOT_SUPPORTED = 1;
+    private static final int BLUETOOTH_NOT_ENABLED = 2;
+    private static final int BLUETOOTH_NO_PAIRED_DEVICES = 3;
+
     private ProgressBar progressBar;
     private ProgressBarAnimation anim0;
     private ProgressBarAnimation anim1;
     private ProgressBarAnimation anim2;
-    private ProgressBarAnimation anim3;
     int SETUP_RESULT = -1;
 
     @Override
@@ -38,10 +52,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         progressBar = findViewById(R.id.SplashActivity_progressBar);
-        anim0 = new ProgressBarAnimation(progressBar, 0, 25);
-        anim1 = new ProgressBarAnimation(progressBar, 25, 50);
-        anim2 = new ProgressBarAnimation(progressBar, 50, 75);
-        anim3 = new ProgressBarAnimation(progressBar, 75, 100);
+        anim0 = new ProgressBarAnimation(progressBar, 0, 33);
+        anim1 = new ProgressBarAnimation(progressBar, 33, 66);
+        anim2 = new ProgressBarAnimation(progressBar, 66, 100);
 
     }
 
@@ -79,8 +92,6 @@ public class SplashActivity extends AppCompatActivity {
         anim1.setDuration(segmentDuration);
         anim2.setAnimationListener(animationListener);
         anim2.setDuration(segmentDuration);
-        anim3.setAnimationListener(animationListener);
-        anim3.setDuration(segmentDuration);
         progressBar.startAnimation(anim0);
     }
 
@@ -92,33 +103,83 @@ public class SplashActivity extends AppCompatActivity {
 
     private void onProgressBarStopped(int progress) {
         // TODO: Trigger intermediate loading steps such as bluetooth searching, pairing, checking status, etc.
-        if (progress == 25){
+        if (progress == 33){
             loadingSection1();
-        }else if (progress == 50){
+        }else if (progress == 66){
             loadingSection2();
-        }else if (progress == 75){
-            loadingSection3();
         }
     }
 
     private void loadingSection1() {
         progressBar.startAnimation(anim1);
         // Trigger Bluetooth setup
-        SETUP_RESULT = BluetoothWrapper.attemptSetup(getApplicationContext());
+        SETUP_RESULT = setupBluetooth();
     }
 
     private void loadingSection2() {
-        if (SETUP_RESULT == 0){ // Bluetooth successfully connected
+        if (SETUP_RESULT == BLUETOOTH_SETUP_COMPLETE){ // Bluetooth successfully connected
             progressBar.startAnimation(anim2);
-            // TODO: Add purpose to next section?
         }else{
-            Toast.makeText(getApplicationContext(),"Failed to set up Bluetooth",Toast.LENGTH_LONG).show(); // TODO: Improve error messages
+            displayError(SETUP_RESULT);
         }
     }
 
-    private void loadingSection3() {
-        progressBar.startAnimation(anim3);
-        // TODO: Add purpose to next section?
+    private int setupBluetooth() {
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        BluetoothDevice connectedDevice;
+        BTDeviceData connectedDeviceData;
+        CommHandler commHandler;
+
+
+        if (bluetoothAdapter == null){
+            // Device does not support Bluetooth
+            return BLUETOOTH_NOT_SUPPORTED;
+        }
+        if (!bluetoothAdapter.isEnabled()){
+            // Bluetooth is not enabled on device
+            return BLUETOOTH_NOT_ENABLED;
+        }
+        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+        if (pairedDevices.size() > 0){
+            ArrayList<BTDeviceData> btDeviceDataArrayList = new ArrayList<>();
+            for (BluetoothDevice device : pairedDevices){
+
+                // TODO: find Raspberry Pi, and set connectedDevice to it
+
+            }
+        }else{
+            // There are no paired Bluetooth devices
+            return BLUETOOTH_NO_PAIRED_DEVICES;
+        }
+
+        // TODO: resolve connectedDevice
+
+        // create connectedDeviceData from connectedDevice
+        connectedDeviceData = new BTDeviceData(connectedDevice);
+        // set up CommHandler using connectedDeviceData
+        commHandler = new CommHandler(connectedDeviceData, handler);
+
+        // Save static instances of bluetoothAdapter and commHandler in BluetoothWrapper, so they are globally available
+        BluetoothWrapper.setBluetoothAdapter(bluetoothAdapter);
+        BluetoothWrapper.setCommHandler(commHandler);
+
+        // Bluetooth successfully set up
+        return BLUETOOTH_SETUP_COMPLETE;
+    }
+
+
+    private void displayError(int statusCode) {
+        String errorMessage;
+        if (statusCode == BLUETOOTH_NOT_INITIALIZED){
+            errorMessage = "Error: Bluetooth not initialized";
+        }else if (statusCode == BLUETOOTH_NOT_SUPPORTED){
+            errorMessage = "Error: Bluetooth not suported on this device";
+        }else if (statusCode == BLUETOOTH_NO_PAIRED_DEVICES){
+            errorMessage = "Error: There is nothing paired to this device";
+        }else{
+            errorMessage = "Error: An unrecognized error has occurred";
+        }
+        Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
     }
 
 
