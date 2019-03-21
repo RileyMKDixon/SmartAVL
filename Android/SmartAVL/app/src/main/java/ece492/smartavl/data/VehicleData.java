@@ -24,9 +24,9 @@ public class VehicleData {
     public static final int BLUETOOTH_NOT_ENABLED = 2;
     public static final int BLUETOOTH_NO_PAIRED_DEVICES = 3;
     public static final int BLUETOOTH_CONNECTION_FAILED = 4;
+    public static final int BLUETOOTH_CONNECTION_DISCONNECTED = 5;
 
-    public static int BLUETOOTH_STATUS;
-
+    private static int bluetoothStatus = BLUETOOTH_NOT_INITIALIZED;
 
     private static String vehicleMake = "Unknown";
     private static String vehicleModel = "Unknown";
@@ -65,6 +65,22 @@ public class VehicleData {
         vehicleHeadlightStatus = HEADLIGHTS_OFF;
         vehicleHighBeamStatus = HIGH_BEAMS_OFF;
         vehicleCheckEngineStatus = CHECK_ENGINE_OFF;
+    }
+
+    /**
+     * Returns the status of the bluetooth connection/setup process
+     * @return
+     */
+    public static int getBluetoothStatus() {
+        return bluetoothStatus;
+    }
+
+    /**
+     * Sets the status of the bluetooth connection/setup process
+     * @param status
+     */
+    public static void setBluetoothStatus(int status) {
+        bluetoothStatus = status;
     }
 
     /**

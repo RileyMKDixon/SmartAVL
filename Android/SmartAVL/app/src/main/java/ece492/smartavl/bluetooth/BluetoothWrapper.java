@@ -2,12 +2,11 @@ package ece492.smartavl.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothSocket;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.widget.Toast;
 
+import ece492.smartavl.data.DataHandler;
 import ece492.smartavl.data.VehicleData;
 
 public class BluetoothWrapper {
@@ -22,13 +21,15 @@ public class BluetoothWrapper {
             int whatHappened = inputMessage.what;
             switch (whatHappened){
                 case CommHandler.MESSAGE_READ:
+                    DataHandler.handleIncomingData((String) inputMessage.obj);
                     break;
                 case CommHandler.MESSAGE_WRITE:
+                    // TODO: What to do here?
+
                     break;
                 case CommHandler.CONNECTION_FAILED:
-                    VehicleData.BLUETOOTH_STATUS = VehicleData.BLUETOOTH_CONNECTION_FAILED;
+                    VehicleData.setBluetoothStatus(VehicleData.BLUETOOTH_CONNECTION_FAILED);
             }
-
         }
     };
 

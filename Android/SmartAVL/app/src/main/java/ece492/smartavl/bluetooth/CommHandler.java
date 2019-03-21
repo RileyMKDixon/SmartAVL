@@ -16,6 +16,8 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Set;
 
+import ece492.smartavl.data.VehicleData;
+
 public class CommHandler extends Thread {
 
     private final static int bufferSize = 2048;
@@ -66,6 +68,7 @@ public class CommHandler extends Thread {
             Message connectionFailed = handler.obtainMessage(CONNECTION_FAILED);
             connectionFailed.sendToTarget();
             e.printStackTrace();
+            VehicleData.setBluetoothStatus(VehicleData.BLUETOOTH_CONNECTION_FAILED);
         }
 
 

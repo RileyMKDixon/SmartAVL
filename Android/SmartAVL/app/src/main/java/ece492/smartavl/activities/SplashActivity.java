@@ -25,6 +25,7 @@ import ece492.smartavl.R;
 import ece492.smartavl.bluetooth.BTDeviceData;
 import ece492.smartavl.bluetooth.BluetoothWrapper;
 import ece492.smartavl.bluetooth.CommHandler;
+import ece492.smartavl.data.VehicleData;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -32,19 +33,12 @@ import ece492.smartavl.bluetooth.CommHandler;
  */
 public class SplashActivity extends AppCompatActivity {
 
-    private static final int BLUETOOTH_NOT_INITIALIZED = -1;
-    private static final int BLUETOOTH_SETUP_COMPLETE = 0;
-    private static final int BLUETOOTH_NOT_SUPPORTED = 1;
-    private static final int BLUETOOTH_NOT_ENABLED = 2;
-    private static final int BLUETOOTH_NO_PAIRED_DEVICES = 3;
-
     private ProgressBar progressBar;
     private ProgressBarAnimation anim0;
     private ProgressBarAnimation anim1;
     private ProgressBarAnimation anim2;
     private Set<BluetoothDevice> pairedDevices;
     private ArrayList<BluetoothDevice> failedToConnectDevices;
-    int SETUP_RESULT = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,14 +119,18 @@ public class SplashActivity extends AppCompatActivity {
     private void loadingSection1() {
         progressBar.startAnimation(anim1);
         // Trigger Bluetooth setup
-        SETUP_RESULT = setupBluetooth();
+        setupBluetooth();
     }
 
     private void loadingSection2() {
-        if (SETUP_RESULT == BLUETOOTH_SETUP_COMPLETE){ // Bluetooth successfully connected
+        // Wait for Bluetooth status flag to change
+        while(VehicleData.getBluetoothStatus() == VehicleData.BLUETOOTH_NOT_INITIALIZED){
+            // do nothing
+        }
+        if (VehicleData.getBluetoothStatus() == VehicleData.BLUETOOTH_SETUP_COMPLETE){ // Bluetooth successfully connected
             progressBar.startAnimation(anim2);
         }else{
-            displayError(SETUP_RESULT);
+            displayBluetoothError(VehicleData.getBluetoothStatus());
         }
     }
 
@@ -154,54 +152,56 @@ public class SplashActivity extends AppCompatActivity {
                         CommHandler commHandler = new CommHandler(
                                 BluetoothWrapper.getConnectedDevice(),
                                 BluetoothWrapper.getHandler());
+                        commHandler.run();
                         BluetoothWrapper.setCommHandler(commHandler);
-
+                        VehicleData.setBluetoothStatus(VehicleData.BLUETOOTH_SETUP_COMPLETE);
                     }
                 }else{
                     failedToConnectDevices.add(btDevice);
                 }
-
             }
         }
     };
 
-    private int setupBluetooth() {
-        BluetoothDevice connectedDevice;
-        BTDeviceData connectedDeviceData;
-        CommHandler commHandler;
-
+    private void setupBluetooth() {
+        // set status to not initialized
+        VehicleData.setBluetoothStatus(VehicleData.BLUETOOTH_NOT_INITIALIZED);
 
         if (BluetoothWrapper.getBluetoothAdapter() == null){
             // Device does not support Bluetooth
-            return BLUETOOTH_NOT_SUPPORTED;
+            VehicleData.setBluetoothStatus(VehicleData.BLUETOOTH_NOT_SUPPORTED);
+            return;
         }
         if (!BluetoothWrapper.getBluetoothAdapter().isEnabled()){
             // Bluetooth is not enabled on device
-            return BLUETOOTH_NOT_ENABLED;
+            VehicleData.setBluetoothStatus(VehicleData.BLUETOOTH_NOT_ENABLED);
+            return;
         }
 
-
-
         if (!(pairedDevices.size() > 0)){
-            return BLUETOOTH_NO_PAIRED_DEVICES;
+            // There are no paired devices
+            VehicleData.setBluetoothStatus(VehicleData.BLUETOOTH_NO_PAIRED_DEVICES);
+            return;
         }
 
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         BluetoothWrapper.getBluetoothAdapter().startDiscovery();
         registerReceiver(receiver, filter);
-
-        return BLUETOOTH_SETUP_COMPLETE;
     }
 
 
-    private void displayError(int statusCode) {
+    private void displayBluetoothError(int statusCode) {
         String errorMessage;
-        if (statusCode == BLUETOOTH_NOT_INITIALIZED){
+        if (statusCode == VehicleData.BLUETOOTH_NOT_INITIALIZED){
             errorMessage = "Error: Bluetooth not initialized";
-        }else if (statusCode == BLUETOOTH_NOT_SUPPORTED){
+        }else if (statusCode == VehicleData.BLUETOOTH_NOT_SUPPORTED){
             errorMessage = "Error: Bluetooth not suported on this device";
-        }else if (statusCode == BLUETOOTH_NO_PAIRED_DEVICES){
+        }else if (statusCode == VehicleData.BLUETOOTH_NO_PAIRED_DEVICES) {
             errorMessage = "Error: There is nothing paired to this device";
+        }else if (statusCode == VehicleData.BLUETOOTH_CONNECTION_FAILED) {
+            errorMessage = "Error: Failed to connect to Bluetooth device";
+        }else if (statusCode == VehicleData.BLUETOOTH_CONNECTION_DISCONNECTED){
+            errorMessage = "Error: Bluetooth disconnected during setup process";
         }else{
             errorMessage = "Error: An unrecognized error has occurred";
         }
