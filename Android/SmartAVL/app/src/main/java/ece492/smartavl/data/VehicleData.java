@@ -82,6 +82,13 @@ public class VehicleData {
      */
     public static void setBluetoothStatus(int status) {
         bluetoothStatus = status;
+        if (bluetoothStatus == BLUETOOTH_SETUP_COMPLETE){
+            // if bluetooth is set up, set displayed status to connected
+            setConnectionStatus(STATUS_CONNECTED);
+        }else{
+            // if bluetooth is no longer set up, reset VehicleData to defaults
+            setToDefaults();
+        }
     }
 
     /**

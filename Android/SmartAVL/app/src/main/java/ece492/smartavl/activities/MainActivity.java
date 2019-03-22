@@ -64,13 +64,6 @@ public class MainActivity extends MainNavigationActivity {
     }
 
     protected void updateDisplay() {
-        // update VehicleData's connectionStatus to match bluetoothStatus
-        if (VehicleData.getBluetoothStatus() == VehicleData.BLUETOOTH_SETUP_COMPLETE){
-            VehicleData.setConnectionStatus(VehicleData.STATUS_CONNECTED);
-        }else{
-            VehicleData.setConnectionStatus(VehicleData.STATUS_DISCONNECTED);
-        }
-
         // update on screen elements to match data in VehicleData
         setMake(VehicleData.getMake());
         setModel(VehicleData.getModel());

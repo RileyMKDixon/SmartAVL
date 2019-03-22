@@ -106,7 +106,7 @@ public class SplashActivity extends AppCompatActivity {
         anim2.setAnimationListener(animationListener);
         anim2.setDuration(segmentDuration);
         reverseanim.setAnimationListener(animationListener);
-        reverseanim.setDuration(segmentDuration * 4);
+        reverseanim.setDuration(segmentDuration);
         singleanim.setAnimationListener(animationListener);
         singleanim.setDuration(segmentDuration * 3);
         progressBar.startAnimation(anim0);
