@@ -36,7 +36,7 @@ public class VehicleData {
 
     private static int vehicleSpeed = 0;
     private static int vehicleRPM = 0;
-    private static int vehicleFuelPercentage = 100;
+    private static int vehicleFuelVolume = 0;
 
     private static double vehicleLatitude = 53.527570;
     private static double vehicleLongitude = -113.529453;
@@ -56,7 +56,7 @@ public class VehicleData {
         vehicleYear = 1900;
         vehicleSpeed = 0;
         vehicleRPM = 0;
-        vehicleFuelPercentage = 100;
+        vehicleFuelVolume = 0;
         vehicleLatitude = 53.527570;
         vehicleLongitude = -113.529453;
         vehicleConnectionStatus = STATUS_DISCONNECTED;
@@ -133,7 +133,7 @@ public class VehicleData {
     }
 
     /**
-     * Returns the current vehicle speed
+     * Returns the current vehicle speed in km/h
      * @return
      */
     public static int getSpeed() {
@@ -141,7 +141,7 @@ public class VehicleData {
     }
 
     /**
-     * Sets the current vehicle speed
+     * Sets the current vehicle speed in km/h
      * @param speed
      */
     public static void setSpeed(int speed) {
@@ -165,24 +165,19 @@ public class VehicleData {
     }
 
     /**
-     * Returns the current vehicle fuel percentage
+     * Returns the current vehicle fuel volume in liters
      * @return
      */
-    public static int getFuelPercentage() {
-        return vehicleFuelPercentage;
+    public static int getFuelVolume() {
+        return vehicleFuelVolume;
     }
 
     /**
-     * Sets the current vehicle fuel percentage
-     * @param fuelPercentage
+     * Sets the current vehicle fuel volume in liters
+     * @param fuelVolume
      */
-    public static void setFuelPercentage(int fuelPercentage) {
-        if (fuelPercentage < 0) {
-            fuelPercentage = 0;
-        }else if (fuelPercentage > 100){
-            fuelPercentage = 100;
-        }
-        vehicleFuelPercentage = fuelPercentage;
+    public static void setFuelVolume(int fuelVolume) {
+        vehicleFuelVolume = fuelVolume;
     }
 
     /**

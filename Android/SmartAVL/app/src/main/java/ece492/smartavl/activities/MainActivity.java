@@ -80,7 +80,7 @@ public class MainActivity extends MainNavigationActivity {
         setLockStatus(VehicleData.getLockStatus());
         setSpeed(VehicleData.getSpeed());
         setRPM(VehicleData.getRPM());
-        setFuelPercentage(VehicleData.getFuelPercentage());
+        setFuelVolume(VehicleData.getFuelVolume());
         setBatteryStatus(VehicleData.getBatteryStatus());
         setHeadlightStatus(VehicleData.getHeadlightStatus());
         setHighBeamStatus(VehicleData.getHighBeamStatus());
@@ -159,11 +159,11 @@ public class MainActivity extends MainNavigationActivity {
         return true;
     }
 
-    public boolean setFuelPercentage(int percentage) {
-        if (percentage < 0 || percentage > 100){
+    public boolean setFuelVolume(int volume) {
+        if (volume < 0){
             return false;
         }
-        fuel_textView.setText(String.valueOf(percentage) + "%");
+        fuel_textView.setText(String.valueOf(volume) + " L");
         fuel_textView.invalidate();
         return true;
     }

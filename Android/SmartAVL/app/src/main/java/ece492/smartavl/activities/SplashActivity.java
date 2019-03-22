@@ -286,7 +286,11 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        unregisterReceiver(receiver);
+        try{
+            unregisterReceiver(receiver);
+        }catch(IllegalArgumentException e){
+            // in case receiver was never successfully registered due to error in setup process
+        }
         BluetoothWrapper.getBluetoothAdapter().cancelDiscovery();
     }
 
