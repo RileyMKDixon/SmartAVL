@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+sudo modprobe can
+sudo ip link set can0 up type can bitrate 500000 restart-ms 100
+sudo ifconfig can0 txqueuelen 1000

@@ -1,0 +1,2 @@
+# Connect vcan0 interface to /dev/ttyUSB0
+sudo socat pty,link=/dev/ttyUSB0,raw,echo=0,waitslave INTERFACE:vcan0
