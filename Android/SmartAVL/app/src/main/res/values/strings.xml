@@ -13,12 +13,8 @@
     <string name="map_latitude">Latitude:</string>
     <string name="map_longitude">Longitude:</string>
     <string name="map_marker_title">Current Vehicle Location</string>
-    <string name="make_title">Make:</string>
-    <string name="make"></string>
-    <string name="model_title">Model:</string>
-    <string name="model"></string>
-    <string name="year_title">Year:</string>
-    <string name="year"></string>
+    <string name="vin_title">VIN:</string>
+    <string name="vin"></string>
     <string name="status_title">Status:</string>
     <string name="status_connected">Connected</string>
     <string name="status_disconnected">Not Connected</string>

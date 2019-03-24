@@ -28,92 +28,52 @@
         app:layout_constraintTop_toBottomOf="@+id/navigation">
 
         <TextView
-            android:id="@+id/year_title_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/year_title"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/make_title_textView"
-            app:layout_constraintTop_toBottomOf="@+id/make_title_textView" />
-
-        <TextView
-            android:id="@+id/make_textView"
+            android:id="@+id/vin_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/make"
+            android:text="@string/vin"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/make_title_textView"
-            app:layout_constraintTop_toTopOf="@+id/make_title_textView" />
-
-        <TextView
-            android:id="@+id/year_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/year"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/make_textView"
-            app:layout_constraintTop_toTopOf="@+id/year_title_textView" />
+            app:layout_constraintStart_toEndOf="@+id/vin_title_textView"
+            app:layout_constraintTop_toTopOf="@+id/vin_title_textView" />
 
         <TextView
             android:id="@+id/status_title_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="160dp"
             android:text="@string/status_title"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/model_title_textView"
-            app:layout_constraintTop_toTopOf="@+id/year_textView" />
+            app:layout_constraintStart_toEndOf="@+id/vin_title_textView"
+            app:layout_constraintTop_toTopOf="@+id/vin_title_textView" />
 
         <TextView
             android:id="@+id/status_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="@string/status_connected"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/model_textView"
+            app:layout_constraintStart_toEndOf="@+id/status_title_textView"
             app:layout_constraintTop_toTopOf="@+id/status_title_textView" />
 
         <TextView
-            android:id="@+id/model_title_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="200dp"
-            android:text="@string/model_title"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/make_title_textView"
-            app:layout_constraintTop_toTopOf="@+id/make_title_textView" />
-
-        <TextView
-            android:id="@+id/make_title_textView"
+            android:id="@+id/vin_title_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@string/make_title"
+            android:layout_marginBottom="8dp"
+            android:text="@string/vin_title"
             android:textColor="@android:color/white"
             android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/model_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/model"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/model_title_textView"
-            app:layout_constraintTop_toTopOf="@+id/model_title_textView" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout

@@ -29,10 +29,7 @@ public class VehicleData {
 
     private static int bluetoothStatus = BLUETOOTH_NOT_INITIALIZED;
 
-    private static String vehicleMake = "Unknown";
-    private static String vehicleModel = "Unknown";
-
-    private static int vehicleYear = 1900;
+    private static String vehicleVIN = "Unknown";
 
     private static int vehicleSpeed = 0;
     private static int vehicleRPM = 0;
@@ -51,9 +48,7 @@ public class VehicleData {
 
 
     public static void setToDefaults() {
-        vehicleMake = "Unknown";
-        vehicleModel = "Unknown";
-        vehicleYear = 1900;
+        vehicleVIN = "Unknown";
         vehicleSpeed = 0;
         vehicleRPM = 0;
         vehicleFuelVolume = 0;
@@ -92,51 +87,19 @@ public class VehicleData {
     }
 
     /**
-     * Returns the make of the vehicle
+     * Returns the VIN of the vehicle
      * @return
      */
-    public static String getMake() {
-        return vehicleMake;
+    public static String getVIN() {
+        return vehicleVIN;
     }
 
     /**
-     * Sets the make of the vehicle
-     * @param make
+     * Sets the VIN of the vehicle
+     * @param vin
      */
-    public static void setMake(String make) {
-        vehicleMake = make;
-    }
-
-    /**
-     * Returns the model of the vehicle
-     * @return
-     */
-    public static String getModel() {
-        return vehicleModel;
-    }
-
-    /**
-     * Sets the model of the vehicle
-     * @param model
-     */
-    public static void setModel(String model) {
-        vehicleModel = model;
-    }
-
-    /**
-     * Returns the year of the vehicle
-     * @return
-     */
-    public static int getYear() {
-        return vehicleYear;
-    }
-
-    /**
-     * Sets the year of the vehicle
-     * @param year
-     */
-    public static void setYear(int year) {
-        vehicleYear = year;
+    public static void setMake(String vin) {
+        vehicleVIN = vin;
     }
 
     /**

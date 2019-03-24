@@ -9,9 +9,7 @@ import ece492.smartavl.data.VehicleData;
 
 public class MainActivity extends MainNavigationActivity {
 
-    private TextView make_textView;
-    private TextView model_textView;
-    private TextView year_textView;
+    private TextView vin_textView;
     private TextView status_textView;
     private TextView ignition_textView;
     private TextView lock_textView;
@@ -46,9 +44,7 @@ public class MainActivity extends MainNavigationActivity {
 
         navigation.setSelectedItemId(R.id.navigation_main);
 
-        make_textView = findViewById(R.id.make_textView);
-        model_textView = findViewById(R.id.model_textView);
-        year_textView = findViewById(R.id.year_textView);
+        vin_textView = findViewById(R.id.vin_textView);
         status_textView = findViewById(R.id.status_textView);
         ignition_textView = findViewById(R.id.ignition_textView);
         lock_textView = findViewById(R.id.lock_textView);
@@ -65,9 +61,7 @@ public class MainActivity extends MainNavigationActivity {
 
     protected void updateDisplay() {
         // update on screen elements to match data in VehicleData
-        setMake(VehicleData.getMake());
-        setModel(VehicleData.getModel());
-        setYear(VehicleData.getYear());
+        setVIN(VehicleData.getVIN());
         setConnectionStatus(VehicleData.getConnectionStatus());
         setIgnitionStatus(VehicleData.getIgnitionStatus());
         setLockStatus(VehicleData.getLockStatus());
@@ -80,19 +74,9 @@ public class MainActivity extends MainNavigationActivity {
         setCheckEngineStatus(VehicleData.getCheckEngineStatus());
     }
 
-    public void setMake(String make) {
-        make_textView.setText(make);
-        make_textView.invalidate();
-    }
-
-    public void setModel(String model) {
-        model_textView.setText(model);
-        model_textView.invalidate();
-    }
-
-    public void setYear(int year) {
-        year_textView.setText(String.valueOf(year));
-        year_textView.invalidate();
+    public void setVIN(String vin) {
+        vin_textView.setText(vin);
+        vin_textView.invalidate();
     }
 
     public boolean setConnectionStatus(int status) {
