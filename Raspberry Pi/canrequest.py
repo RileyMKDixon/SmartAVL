@@ -14,7 +14,15 @@ def send_request(pid):
     bus = can.interface.Bus() # default bus
     msg = can.Message(arbitration_id=OBD2_REQUEST, data=data, is_extended_id=False)
     bus.send(msg)
+
+    time.sleep(0.3) # a delay to ensure the CAN bus can respond to each message
     
+# Finds supported OBD2 PIDs.
+def find_supported():
+    for pid in range(0x00, 0xE0, 0x20):
+        send_request(pid)
+   
+# Makes requests for desired information.
 # Refer to https://en.wikipedia.org/wiki/OBD-II_PIDs#Service_01 for OBD2 PIDs
 def make_requests():
     send_request(0x0D) # Vehicle speed (km/h)
@@ -26,4 +34,5 @@ def make_requests():
     send_request(0x01) # Monitor status
     
 if __name__ == "__main__":
+    # find_supported()
     make_requests()
