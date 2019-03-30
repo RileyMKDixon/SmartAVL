@@ -1,0 +1,32 @@
+# Command run to get these stats:
+pi@raspberrypi:~ $ ip -details -statistics link show can0
+
+# Before transmitting CAN message:
+3: can0: <NOARP,UP,LOWER_UP,ECHO> mtu 16 qdisc pfifo_fast state UNKNOWN mode DEFAULT group default qlen 1000
+    link/can  promiscuity 1 
+    can state ERROR-ACTIVE restart-ms 100 
+	  bitrate 500000 sample-point 0.875 
+	  tq 125 prop-seg 6 phase-seg1 7 phase-seg2 2 sjw 1
+	  mcp251x: tseg1 3..16 tseg2 2..8 sjw 1..4 brp 1..64 brp-inc 1
+	  clock 8000000
+	  re-started bus-errors arbit-lost error-warn error-pass bus-off
+	  0          0          0          0          0          0         numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 
+    RX: bytes  packets  errors  dropped overrun mcast   
+    0          0        0       0       0       0       
+    TX: bytes  packets  errors  dropped carrier collsns 
+    0          0        0       0       0       0       
+
+# After transmitting CAN message:
+3: can0: <NOARP,UP,LOWER_UP,ECHO> mtu 16 qdisc pfifo_fast state UNKNOWN mode DEFAULT group default qlen 1000
+    link/can  promiscuity 1 
+    can state ERROR-PASSIVE restart-ms 100 
+	  bitrate 500000 sample-point 0.875 
+	  tq 125 prop-seg 6 phase-seg1 7 phase-seg2 2 sjw 1
+	  mcp251x: tseg1 3..16 tseg2 2..8 sjw 1..4 brp 1..64 brp-inc 1
+	  clock 8000000
+	  re-started bus-errors arbit-lost error-warn error-pass bus-off
+	  0          0          0          1          1          0         numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 
+    RX: bytes  packets  errors  dropped overrun mcast   
+    0          0        0       0       0       0       
+    TX: bytes  packets  errors  dropped carrier collsns 
+    0          0        0       0       0       0  
