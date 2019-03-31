@@ -18,7 +18,7 @@ def setup_bus_filters():
         },
         {
             "can_id": 0x7e8,
-            "can_mask": 0x7ff
+            "can_mask": 0x7f8
         },
     ]
     bus.set_filters(obd2_filters)
