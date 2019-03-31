@@ -31,7 +31,7 @@
             android:id="@+id/vin_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="50dp"
             android:text="@string/vin"
             android:textColor="@android:color/white"
             android:textSize="30sp"
@@ -55,11 +55,10 @@
             android:id="@+id/status_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:text="@string/status_connected"
             android:textColor="@android:color/white"
             android:textSize="30sp"
-            app:layout_constraintStart_toEndOf="@+id/status_title_textView"
+            app:layout_constraintStart_toStartOf="@+id/vin_textView"
             app:layout_constraintTop_toTopOf="@+id/status_title_textView" />
 
         <TextView
@@ -88,7 +87,7 @@
             android:id="@+id/runTimeSinceEngineStart_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fuel"
+            android:text="@string/runTime"
             android:textColor="@android:color/white"
             android:textSize="40sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView3"
