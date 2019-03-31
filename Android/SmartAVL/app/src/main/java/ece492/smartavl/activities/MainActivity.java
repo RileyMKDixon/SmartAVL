@@ -108,7 +108,7 @@ public class MainActivity extends MainNavigationActivity {
         int hours = (int) Math.floor(runTime/3600);
         int minutes = (int) Math.floor((runTime - hours * 3600)/60);
         int seconds = (int) Math.floor(runTime - hours * 3600 - minutes * 60);
-        String timeString = String.format("%2d:%2d:%2d", hours, minutes, seconds);
+        String timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
         runTimeSinceEngineStart_textView.setText(timeString);
         runTimeSinceEngineStart_textView.invalidate();
         return true;
