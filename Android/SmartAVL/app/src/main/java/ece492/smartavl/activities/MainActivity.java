@@ -11,15 +11,12 @@ public class MainActivity extends MainNavigationActivity {
 
     private TextView vin_textView;
     private TextView status_textView;
-    private TextView ignition_textView;
-    private TextView lock_textView;
     private TextView speed_textView;
     private TextView rpm_textView;
-    private TextView fuel_textView;
-    private TextView battery_textView;
-    private TextView headlights_textView;
-    private TextView high_beams_textView;
+    private TextView runTimeSinceEngineStart_textView;
     private TextView check_engine_textView;
+    private TextView latitude_textView;
+    private TextView longitude_textView;
 
     protected void onMainSelected() {
         // do nothing
@@ -46,15 +43,12 @@ public class MainActivity extends MainNavigationActivity {
 
         vin_textView = findViewById(R.id.vin_textView);
         status_textView = findViewById(R.id.status_textView);
-        ignition_textView = findViewById(R.id.ignition_textView);
-        lock_textView = findViewById(R.id.lock_textView);
         speed_textView = findViewById(R.id.speed_textView);
         rpm_textView = findViewById(R.id.rpm_textView);
-        fuel_textView = findViewById(R.id.fuel_textView);
-        battery_textView = findViewById(R.id.battery_textView);
-        headlights_textView = findViewById(R.id.headlight_textView);
-        high_beams_textView = findViewById(R.id.high_beam_textView);
+        runTimeSinceEngineStart_textView = findViewById(R.id.runTimeSinceEngineStart_textView);
         check_engine_textView = findViewById(R.id.check_engine_textView);
+        latitude_textView = findViewById(R.id.latitude_textView);
+        longitude_textView = findViewById(R.id.longitude_textView);
 
         updateDisplay();
     }
@@ -63,15 +57,12 @@ public class MainActivity extends MainNavigationActivity {
         // update on screen elements to match data in VehicleData
         setVIN(VehicleData.getVIN());
         setConnectionStatus(VehicleData.getConnectionStatus());
-        setIgnitionStatus(VehicleData.getIgnitionStatus());
-        setLockStatus(VehicleData.getLockStatus());
         setSpeed(VehicleData.getSpeed());
         setRPM(VehicleData.getRPM());
-        setFuelVolume(VehicleData.getFuelVolume());
-        setBatteryStatus(VehicleData.getBatteryStatus());
-        setHeadlightStatus(VehicleData.getHeadlightStatus());
-        setHighBeamStatus(VehicleData.getHighBeamStatus());
+        setRunTimeSinceVehicleStart(VehicleData.getRunTimeSinceEngineStart());
         setCheckEngineStatus(VehicleData.getCheckEngineStatus());
+        setLatitude(VehicleData.getLatitude());
+        setLongitude(VehicleData.getLongitude());
     }
 
     public void setVIN(String vin) {
@@ -87,32 +78,6 @@ public class MainActivity extends MainNavigationActivity {
         }else if (status == VehicleData.STATUS_CONNECTED){
             status_textView.setText(getString(R.string.status_connected));
             status_textView.invalidate();
-            return true;
-        }
-        return false;
-    }
-
-    public boolean setIgnitionStatus(int status) {
-        if (status == VehicleData.IGNITION_OFF){
-            ignition_textView.setText(getString(R.string.ignition_off));
-            ignition_textView.invalidate();
-            return true;
-        }else if (status == VehicleData.IGNITION_ON){
-            ignition_textView.setText(getString(R.string.ignition_on));
-            ignition_textView.invalidate();
-            return true;
-        }
-        return false;
-    }
-
-    public boolean setLockStatus(int status) {
-        if (status == VehicleData.LOCK_UNLOCKED){
-            lock_textView.setText(getString(R.string.lock_unlocked));
-            ignition_textView.invalidate();
-            return true;
-        }else if (status == VehicleData.LOCK_LOCKED){
-            lock_textView.setText(getString(R.string.lock_locked));
-            ignition_textView.invalidate();
             return true;
         }
         return false;
@@ -136,52 +101,17 @@ public class MainActivity extends MainNavigationActivity {
         return true;
     }
 
-    public boolean setFuelVolume(int volume) {
-        if (volume < 0){
+    public boolean setRunTimeSinceVehicleStart(int runTime) {
+        if (runTime < 0){
             return false;
         }
-        fuel_textView.setText(String.valueOf(volume) + " L");
-        fuel_textView.invalidate();
+        int hours = (int) Math.floor(runTime/3600);
+        int minutes = (int) Math.floor((runTime - hours * 3600)/60);
+        int seconds = (int) Math.floor(runTime - hours * 3600 - minutes * 60);
+        String timeString = String.format("%2d:%2d:%2d", hours, minutes, seconds);
+        runTimeSinceEngineStart_textView.setText(timeString);
+        runTimeSinceEngineStart_textView.invalidate();
         return true;
-    }
-
-    public boolean setBatteryStatus(int status) {
-        if (status == VehicleData.BATTERY_LOW){
-            battery_textView.setText(getString(R.string.battery_low));
-            battery_textView.invalidate();
-            return true;
-        }else if (status == VehicleData.BATTERY_GOOD){
-            battery_textView.setText(getString(R.string.battery_good));
-            battery_textView.invalidate();
-            return true;
-        }
-        return false;
-    }
-
-    public boolean setHeadlightStatus(int status) {
-        if (status == VehicleData.HEADLIGHTS_OFF){
-            headlights_textView.setText(getString(R.string.headlights_off));
-            headlights_textView.invalidate();
-            return true;
-        }else if (status == VehicleData.HEADLIGHTS_ON){
-            headlights_textView.setText(getString(R.string.headlights_on));
-            headlights_textView.invalidate();
-            return true;
-        }
-        return false;
-    }
-
-    public boolean setHighBeamStatus(int status) {
-        if (status == VehicleData.HIGH_BEAMS_OFF){
-            high_beams_textView.setText(getString(R.string.high_beams_off));
-            high_beams_textView.invalidate();
-            return true;
-        }else if (status == VehicleData.HIGH_BEAMS_ON){
-            high_beams_textView.setText(getString(R.string.high_beams_on));
-            high_beams_textView.invalidate();
-            return true;
-        }
-        return false;
     }
 
     public boolean setCheckEngineStatus(int status) {
@@ -195,6 +125,18 @@ public class MainActivity extends MainNavigationActivity {
             return true;
         }
         return false;
+    }
+
+    public boolean setLatitude(double latitude) {
+        latitude_textView.setText(String.valueOf(latitude));
+        latitude_textView.invalidate();
+        return true;
+    }
+
+    public boolean setLongitude(double longitude) {
+        longitude_textView.setText(String.valueOf(longitude));
+        longitude_textView.invalidate();
+        return true;
     }
 
 }
