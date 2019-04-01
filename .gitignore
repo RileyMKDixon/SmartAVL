@@ -70,3 +70,6 @@ fastlane/test_output
 fastlane/readme.md
 Android/SmartAVL/.idea/caches/build_file_checksums.ser
 Android/SmartAVL/.idea/caches/gradle_models.ser
+
+#Google Maps API Key
+Android/SmartAVL/app/src/debug/res/values/google_maps_api.xml
