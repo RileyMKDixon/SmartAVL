@@ -73,3 +73,5 @@ Android/SmartAVL/.idea/caches/gradle_models.ser
 
 #Google Maps API Key
 Android/SmartAVL/app/src/debug/res/values/google_maps_api.xml
+Android/SmartAVL/app/src/release/res/values/google_maps_api.xml
+Android/SmartAVL/.idea/workspace.xml
