@@ -40,19 +40,12 @@ Android/SmartAVL/captures/
 *.iml
 .idea/workspace.xml
 .idea/tasks.xml
-.idea/gradle.xml
-.idea/assetWizardSettings.xml
-.idea/dictionaries
 .idea/libraries
-.idea/caches
 Android/SmartAVL/*.iml
 Android/SmartAVL/.idea/workspace.xml
 Android/SmartAVL/.idea/tasks.xml
-Android/SmartAVL/.idea/gradle.xml
-Android/SmartAVL/.idea/assetWizardSettings.xml
-Android/SmartAVL/.idea/dictionaries
 Android/SmartAVL/.idea/libraries
-Android/SmartAVL/.idea/caches
+
 
 # Keystore files
 # Uncomment the following line if you do not want to check your keystore files in.
@@ -75,5 +68,15 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
+<<<<<<< HEAD
 
 Raspberry Pi/pi_bt_server/.vscode
+=======
+Android/SmartAVL/.idea/caches/build_file_checksums.ser
+Android/SmartAVL/.idea/caches/gradle_models.ser
+
+#Google Maps API Key
+Android/SmartAVL/app/src/debug/res/values/google_maps_api.xml
+Android/SmartAVL/app/src/release/res/values/google_maps_api.xml
+Android/SmartAVL/.idea/workspace.xml
+>>>>>>> 530694ac2f0f368deb864895fd782681fd417948

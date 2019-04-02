@@ -92,7 +92,7 @@ public class MapsActivity extends MainNavigationActivity implements OnMapReadyCa
 
     public void updateLocation(double lat, double lon, boolean moveCamera) {
         LatLng location = new LatLng(lat, lon);
-        marker.setPosition(location);
+        if (marker != null) marker.setPosition(location);
         latitudeTextView.setText(String.valueOf(lat));
         longitudeTextView.setText(String.valueOf(lon));
         latitudeTextView.invalidate();

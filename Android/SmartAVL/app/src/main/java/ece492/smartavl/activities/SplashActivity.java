@@ -65,8 +65,10 @@ public class SplashActivity extends AppCompatActivity {
         singleanim = new ProgressBarAnimation(progressBar, 0, 100);
 
         BluetoothWrapper.setBluetoothAdapter(BluetoothAdapter.getDefaultAdapter());
-        pairedDevices = BluetoothWrapper.getBluetoothAdapter().getBondedDevices();
-        failedToConnectDevices = new ArrayList<BluetoothDevice>();
+        if (BluetoothWrapper.getBluetoothAdapter() != null){ // will be null if Bluetooth is not supported
+            pairedDevices = BluetoothWrapper.getBluetoothAdapter().getBondedDevices();
+            failedToConnectDevices = new ArrayList<BluetoothDevice>();
+        }
 
 
     }
@@ -291,7 +293,9 @@ public class SplashActivity extends AppCompatActivity {
         }catch(IllegalArgumentException e){
             // in case receiver was never successfully registered due to error in setup process
         }
-        BluetoothWrapper.getBluetoothAdapter().cancelDiscovery();
+        if (BluetoothWrapper.getBluetoothAdapter() != null){ // will be null if Bluetooth is not supported
+            BluetoothWrapper.getBluetoothAdapter().cancelDiscovery();
+        }
     }
 
 }

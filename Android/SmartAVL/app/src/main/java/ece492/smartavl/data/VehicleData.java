@@ -5,16 +5,6 @@ public class VehicleData {
     // status code definitions (defined by us)
     public static final int STATUS_DISCONNECTED = 0x00;
     public static final int STATUS_CONNECTED = 0x01;
-    public static final int IGNITION_OFF = 0x10;
-    public static final int IGNITION_ON = 0x11;
-    public static final int LOCK_UNLOCKED = 0x20;
-    public static final int LOCK_LOCKED = 0x21;
-    public static final int BATTERY_LOW = 0x30;
-    public static final int BATTERY_GOOD = 0x31;
-    public static final int HEADLIGHTS_OFF = 0x40;
-    public static final int HEADLIGHTS_ON = 0x41;
-    public static final int HIGH_BEAMS_OFF = 0x50;
-    public static final int HIGH_BEAMS_ON = 0x51;
     public static final int CHECK_ENGINE_OFF = 0x60;
     public static final int CHECK_ENGINE_ON = 0x61;
 
@@ -33,17 +23,12 @@ public class VehicleData {
 
     private static int vehicleSpeed = 0;
     private static int vehicleRPM = 0;
-    private static int vehicleFuelVolume = 0;
+    private static int vehicleRunTimeSinceEngineStart = 0;
 
     private static double vehicleLatitude = 53.527570;
     private static double vehicleLongitude = -113.529453;
 
     private static int vehicleConnectionStatus = STATUS_DISCONNECTED;
-    private static int vehicleIgnitionStatus = IGNITION_OFF;
-    private static int vehicleLockStatus = LOCK_UNLOCKED;
-    private static int vehicleBatteryStatus = BATTERY_GOOD;
-    private static int vehicleHeadlightStatus = HEADLIGHTS_OFF;
-    private static int vehicleHighBeamStatus = HIGH_BEAMS_OFF;
     private static int vehicleCheckEngineStatus = CHECK_ENGINE_OFF;
 
 
@@ -51,15 +36,10 @@ public class VehicleData {
         vehicleVIN = "Unknown";
         vehicleSpeed = 0;
         vehicleRPM = 0;
-        vehicleFuelVolume = 0;
+        vehicleRunTimeSinceEngineStart = 0;
         vehicleLatitude = 53.527570;
         vehicleLongitude = -113.529453;
         vehicleConnectionStatus = STATUS_DISCONNECTED;
-        vehicleIgnitionStatus = IGNITION_OFF;
-        vehicleLockStatus = LOCK_UNLOCKED;
-        vehicleBatteryStatus = BATTERY_GOOD;
-        vehicleHeadlightStatus = HEADLIGHTS_OFF;
-        vehicleHighBeamStatus = HIGH_BEAMS_OFF;
         vehicleCheckEngineStatus = CHECK_ENGINE_OFF;
     }
 
@@ -135,19 +115,19 @@ public class VehicleData {
     }
 
     /**
-     * Returns the current vehicle fuel volume in liters
+     * Returns the time since engine start in seconds
      * @return
      */
-    public static int getFuelVolume() {
-        return vehicleFuelVolume;
+    public static int getRunTimeSinceEngineStart() {
+        return vehicleRunTimeSinceEngineStart;
     }
 
     /**
-     * Sets the current vehicle fuel volume in liters
-     * @param fuelVolume
+     * Sets the current time since engine start in seconds
+     * @param runTimeSinceEngineStart
      */
-    public static void setFuelVolume(int fuelVolume) {
-        vehicleFuelVolume = fuelVolume;
+    public static void setRunTimeSinceEngineStart(int runTimeSinceEngineStart) {
+        vehicleRunTimeSinceEngineStart = runTimeSinceEngineStart;
     }
 
     /**
@@ -204,126 +184,6 @@ public class VehicleData {
      */
     public static boolean isConnected() {
         return (vehicleConnectionStatus == STATUS_CONNECTED);
-    }
-
-    /**
-     * Sets the status of the vehicle ignition
-     * @param status
-     */
-    public static void setIgnitionStatus(int status) {
-        vehicleIgnitionStatus = status;
-    }
-
-    /**
-     * Returns the vehicle ignition status
-     * @return
-     */
-    public static int getIgnitionStatus() {
-        return vehicleIgnitionStatus;
-    }
-
-    /**
-     * Returns true if vehicle ignition is on
-     * @return
-     */
-    public static boolean isIgnitionOn() {
-        return (vehicleIgnitionStatus == IGNITION_ON);
-    }
-
-    /**
-     * Sets the status of the vehicle door locks
-     * @param status
-     */
-    public static void setLockStatus(int status) {
-        vehicleLockStatus = status;
-    }
-
-    /**
-     * Returns the status of the vehicle door locks
-     * @return
-     */
-    public static int getLockStatus() {
-        return vehicleLockStatus;
-    }
-
-    /**
-     * Returns true if vehicle is locked
-     * @return
-     */
-    public static boolean isLocked() {
-        return (vehicleLockStatus == LOCK_LOCKED);
-    }
-
-    /**
-     * Sets the status of the vehicle battery condition
-     * @param status
-     */
-    public static void setBatteryStatus(int status) {
-        vehicleBatteryStatus = status;
-    }
-
-    /**
-     * Returns the status of the vehicle battery condition
-     * @return
-     */
-    public static int getBatteryStatus() {
-        return vehicleBatteryStatus;
-    }
-
-    /**
-     * Returns true if vehicle battery status is good
-     * @return
-     */
-    public static boolean isBatteryGood() {
-        return (vehicleBatteryStatus == BATTERY_GOOD);
-    }
-
-    /**
-     * Sets the status of the vehicle headlights
-     * @param status
-     */
-    public static void setHeadlightStatus(int status) {
-        vehicleHeadlightStatus = status;
-    }
-
-    /**
-     * Returns the status of the vehicle headlights
-     * @return
-     */
-    public static int getHeadlightStatus() {
-        return vehicleHeadlightStatus;
-    }
-
-    /**
-     * Returns true if vehicle headlights are on
-     * @return
-     */
-    public static boolean isHeadlightsOn() {
-        return (vehicleHeadlightStatus == HEADLIGHTS_ON);
-    }
-
-    /**
-     * Sets the status of the vehicle high beams
-     * @param status
-     */
-    public static void setHighBeamStatus(int status) {
-        vehicleHighBeamStatus = status;
-    }
-
-    /**
-     * Returns the status of the vehicle high beams
-     * @return
-     */
-    public static int getHighBeamStatus() {
-        return vehicleHighBeamStatus;
-    }
-
-    /**
-     * Returns true if vehicle headlights are on
-     * @return
-     */
-    public static boolean isHighBeamsOn() {
-        return (vehicleHighBeamStatus == HIGH_BEAMS_ON);
     }
 
     /**
