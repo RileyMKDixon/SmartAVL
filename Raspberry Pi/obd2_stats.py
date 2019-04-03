@@ -10,7 +10,7 @@ PID_FUEL_TANK_LEVEL = 0x2F
 PID_FUEL_PRESSURE = 0x0A
 PID_OIL_TEMP = 0x5C
 PID_DISTANCE_SINCE_CLEAR = 0x31
-PID_STATUS = 0x01
+PID_MONITOR_STATUS = 0x01
 
 
 def extract_data(msg, pid):
@@ -20,6 +20,14 @@ def extract_data(msg, pid):
         return extract_rpm(msg)
     if pid == PID_FUEL_TANK_LEVEL:
         return extract_fuel_tank_level(msg)
+    if pid == PID_FUEL_PRESSURE:
+        return extract_fuel_pressure(msg)
+    if pid == PID_OIL_TEMP:
+        return extract_oil_temp(msg)
+    if pid == PID_DISTANCE_SINCE_CLEAR:
+        return extract_distance_since_clear(msg)
+    if pid == PID_MONITOR_STATUS:
+        return extract_monitor_status(msg)
 
 
 def extract_speed(msg):
@@ -32,6 +40,22 @@ def extract_rpm(msg):
 
 def extract_fuel_tank_level(msg):
     return 100 / 255 * int(msg.data[3])
+
+
+def extract_fuel_pressure(msg):
+    return 3 * int(msg.data[3])
+
+
+def extract_oil_temp(msg):
+    return int(msg.data[3]) - 40
+
+
+def extract_distance_since_clear(msg):
+    return int.from_bytes(msg.data[3:5], byteorder='big')
+
+
+def extract_monitor_status(msg):
+    return msg.data[3] >> 7  # 1 if check engine light is on, 0 otherwise
 
 
 def get_stats(desired):
@@ -48,9 +72,8 @@ def get_stats(desired):
 
 
 def get_desired_stats():
-    desired = [PID_SPEED, PID_RPM]
-    # desired = [PID_SPEED, PID_RPM, PID_FUEL_TANK_LEVEL, PID_FUEL_PRESSURE,
-    #           PID_OIL_TEMP, PID_DISTANCE_SINCE_CLEAR, PID_STATUS]
+    desired = [PID_SPEED, PID_RPM, PID_FUEL_TANK_LEVEL, PID_FUEL_PRESSURE,
+               PID_OIL_TEMP, PID_DISTANCE_SINCE_CLEAR, PID_MONITOR_STATUS]
     return get_stats(desired)
 
 

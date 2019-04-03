@@ -48,4 +48,3 @@ def display_all_supported():
 
 if __name__ == "__main__":
     display_all_supported()
-

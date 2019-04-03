@@ -7,7 +7,7 @@ sys.path.append("..")
 import obd2_supported
 
 
-class TestCanSupported(unittest.TestCase):
+class TestOBD2Supported(unittest.TestCase):
     def test_read_pids_from_msg(self):
         msg_pid = 0x00
         msg = can.Message(arbitration_id=obd2_supported.OBD2_RESPONSE_ID,
