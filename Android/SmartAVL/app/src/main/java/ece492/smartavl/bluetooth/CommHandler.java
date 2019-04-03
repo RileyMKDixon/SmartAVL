@@ -56,7 +56,7 @@ public class CommHandler extends Thread {
             this.serverSocket.connect();
             while(true){
                 int numBytesRead = readStream.read(readerBuffer);
-                byte[] readerBufferSliced = Arrays.copyOfRange(readerBuffer,0, numBytesRead-1);
+                byte[] readerBufferSliced = Arrays.copyOfRange(readerBuffer,0, numBytesRead);
                 if(numBytesRead != 0) {
                     String stringRead = new String(readerBufferSliced);
                     Log.i("CommHandler", "Msg_Read: " + stringRead);

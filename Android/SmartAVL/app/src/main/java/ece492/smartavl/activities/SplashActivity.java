@@ -206,6 +206,7 @@ public class SplashActivity extends AppCompatActivity {
                                 BluetoothWrapper.getConnectedDevice(),
                                 BluetoothWrapper.getHandler());
                         BluetoothWrapper.setCommHandler(commHandler);
+                        BluetoothWrapper.getCommHandler().start();
                         VehicleData.setBluetoothStatus(VehicleData.BLUETOOTH_SETUP_COMPLETE);
                     }
                 }else{
