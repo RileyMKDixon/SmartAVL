@@ -1,4 +1,4 @@
-# can_supported.py:
+# obd2_supported.py:
 # Determines which OBD2 PIDs are supported by a particular vehicle.
 
 from obd2_utils import *
@@ -35,5 +35,17 @@ def find_all_supported():
     return all_supported
 
 
+# Displays all supported OBD2 PIDs to the terminal
+def display_all_supported():
+    supported = find_all_supported()
+    if supported:
+        print("The vehicle supports the following OBD-II PIDs:")
+        print(", ".join(hex(pid) for pid in supported))
+    else:
+        print("The vehicle appears not to support any OBD-II PIDs.")
+        print("Check if the engine is running.")
+
+
 if __name__ == "__main__":
-    print("Supported PIDs:", find_all_supported())
+    display_all_supported()
+
