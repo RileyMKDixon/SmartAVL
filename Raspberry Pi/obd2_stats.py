@@ -55,7 +55,7 @@ def extract_distance_since_clear(msg):
 
 
 def extract_monitor_status(msg):
-    return msg.data[3] >> 7  # 1 if check engine light is on, 0 otherwise
+    return int(msg.data[3]) >> 7  # 1 if check engine light is on, 0 otherwise
 
 
 def get_stats(desired):
