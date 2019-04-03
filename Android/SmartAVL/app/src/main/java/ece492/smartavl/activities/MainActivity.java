@@ -84,6 +84,11 @@ public class MainActivity extends MainNavigationActivity {
     }
 
     public boolean setSpeed(int speed) {
+        if (speed == VehicleData.DATA_UNKNOWN){
+            speed_textView.setText(getString(R.string.unavailable));
+            speed_textView.invalidate();
+            return true;
+        }
         if (speed < 0){
             return false;
         }
@@ -93,6 +98,11 @@ public class MainActivity extends MainNavigationActivity {
     }
 
     public boolean setRPM(int rpm) {
+        if (rpm == VehicleData.DATA_UNKNOWN){
+            rpm_textView.setText(getString(R.string.unavailable));
+            rpm_textView.invalidate();
+            return true;
+        }
         if (rpm < 0){
             return false;
         }
@@ -102,6 +112,11 @@ public class MainActivity extends MainNavigationActivity {
     }
 
     public boolean setRunTimeSinceVehicleStart(int runTime) {
+        if (runTime == VehicleData.DATA_UNKNOWN){
+            runTimeSinceEngineStart_textView.setText(getString(R.string.unavailable));
+            runTimeSinceEngineStart_textView.invalidate();
+            return true;
+        }
         if (runTime < 0){
             return false;
         }
@@ -115,6 +130,11 @@ public class MainActivity extends MainNavigationActivity {
     }
 
     public boolean setCheckEngineStatus(int status) {
+        if (status == VehicleData.DATA_UNKNOWN){
+            check_engine_textView.setText(getString(R.string.unavailable));
+            check_engine_textView.invalidate();
+            return true;
+        }
         if (status == VehicleData.CHECK_ENGINE_OFF){
             check_engine_textView.setText(getString(R.string.check_engine_off));
             check_engine_textView.invalidate();
@@ -128,12 +148,22 @@ public class MainActivity extends MainNavigationActivity {
     }
 
     public boolean setLatitude(double latitude) {
+        if (latitude == VehicleData.DATA_UNKNOWN){
+            latitude_textView.setText(getString(R.string.unavailable));
+            latitude_textView.invalidate();
+            return true;
+        }
         latitude_textView.setText(String.valueOf(latitude));
         latitude_textView.invalidate();
         return true;
     }
 
     public boolean setLongitude(double longitude) {
+        if (longitude == VehicleData.DATA_UNKNOWN){
+            longitude_textView.setText(R.string.unavailable);
+            longitude_textView.invalidate();
+            return true;
+        }
         longitude_textView.setText(String.valueOf(longitude));
         longitude_textView.invalidate();
         return true;

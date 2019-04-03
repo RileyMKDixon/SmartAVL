@@ -79,6 +79,13 @@ public class MapsActivity extends MainNavigationActivity implements OnMapReadyCa
 
     public void setInitialLocation(double lat, double lon) {
         LatLng location = new LatLng(lat, lon);
+        if (lat == VehicleData.DATA_UNKNOWN || lon == VehicleData.DATA_UNKNOWN){
+            latitudeTextView.setText(R.string.unavailable);
+            longitudeTextView.setText(R.string.unavailable);
+            latitudeTextView.invalidate();
+            longitudeTextView.invalidate();
+            return;
+        }
         marker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory
                 .fromResource(R.drawable.map_marker_icon)).position(location)
                 .title(getString(R.string.map_marker_title)));
@@ -91,8 +98,21 @@ public class MapsActivity extends MainNavigationActivity implements OnMapReadyCa
 
 
     public void updateLocation(double lat, double lon, boolean moveCamera) {
+        if (lat == VehicleData.DATA_UNKNOWN || lon == VehicleData.DATA_UNKNOWN){
+            if (marker != null) marker.remove();
+            marker = null;
+            latitudeTextView.setText(R.string.unavailable);
+            longitudeTextView.setText(R.string.unavailable);
+            latitudeTextView.invalidate();
+            longitudeTextView.invalidate();
+            return;
+        }
         LatLng location = new LatLng(lat, lon);
-        if (marker != null) marker.setPosition(location);
+        if (marker == null){
+            setInitialLocation(lat, lon);
+            return;
+        }
+        marker.setPosition(location);
         latitudeTextView.setText(String.valueOf(lat));
         longitudeTextView.setText(String.valueOf(lon));
         latitudeTextView.invalidate();

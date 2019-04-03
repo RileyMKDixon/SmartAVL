@@ -36,4 +36,6 @@
     <string name="check_engine_title">Check Engine:</string>
     <string name="check_engine_on">ON</string>
     <string name="check_engine_off">OFF</string>
+    <string name="unavailable">Unavailable</string>
+    <string name="unknown">Unknown</string>
 </resources>

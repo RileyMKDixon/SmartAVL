@@ -3,6 +3,7 @@ package ece492.smartavl.data;
 public class VehicleData {
 
     // status code definitions (defined by us)
+    public static final int DATA_UNKNOWN = -0x01;
     public static final int STATUS_DISCONNECTED = 0x00;
     public static final int STATUS_CONNECTED = 0x01;
     public static final int CHECK_ENGINE_OFF = 0x60;
@@ -21,26 +22,26 @@ public class VehicleData {
 
     private static String vehicleVIN = "Unknown";
 
-    private static int vehicleSpeed = 0;
-    private static int vehicleRPM = 0;
-    private static int vehicleRunTimeSinceEngineStart = 0;
+    private static int vehicleSpeed = DATA_UNKNOWN;
+    private static int vehicleRPM = DATA_UNKNOWN;
+    private static int vehicleRunTimeSinceEngineStart = DATA_UNKNOWN;
 
-    private static double vehicleLatitude = 53.527570;
-    private static double vehicleLongitude = -113.529453;
+    private static double vehicleLatitude = DATA_UNKNOWN;
+    private static double vehicleLongitude = DATA_UNKNOWN;
 
     private static int vehicleConnectionStatus = STATUS_DISCONNECTED;
-    private static int vehicleCheckEngineStatus = CHECK_ENGINE_OFF;
+    private static int vehicleCheckEngineStatus = DATA_UNKNOWN;
 
 
     public static void setToDefaults() {
         vehicleVIN = "Unknown";
-        vehicleSpeed = 0;
-        vehicleRPM = 0;
-        vehicleRunTimeSinceEngineStart = 0;
-        vehicleLatitude = 53.527570;
-        vehicleLongitude = -113.529453;
+        vehicleSpeed = DATA_UNKNOWN;
+        vehicleRPM = DATA_UNKNOWN;
+        vehicleRunTimeSinceEngineStart = DATA_UNKNOWN;
+        vehicleLatitude = DATA_UNKNOWN;
+        vehicleLongitude = DATA_UNKNOWN;
         vehicleConnectionStatus = STATUS_DISCONNECTED;
-        vehicleCheckEngineStatus = CHECK_ENGINE_OFF;
+        vehicleCheckEngineStatus = DATA_UNKNOWN;
     }
 
     /**
