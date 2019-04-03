@@ -23,7 +23,7 @@ def extract_data(msg, pid):
 
 
 def extract_speed(msg):
-    return int(msg[3])
+    return int(msg.data[3])
 
 
 def extract_rpm(msg):
@@ -31,7 +31,7 @@ def extract_rpm(msg):
 
 
 def extract_fuel_tank_level(msg):
-    return 100 / 255 * int(msg[3])
+    return 100 / 255 * int(msg.data[3])
 
 
 def get_stats(desired):
