@@ -20,7 +20,7 @@ def get_supported_from_msg(msg, msg_pid):
     return decoded
 
 
-# Finds supported OBD2 PIDs across all ranges and returns them in a list.
+# Finds supported OBD2 PIDs across all ranges and returns them as a list of integers.
 def find_all_supported():
     all_supported = []
     for query_pid in range(0x00, 0xE0, 0x20):
@@ -35,7 +35,7 @@ def find_all_supported():
     return all_supported
 
 
-# Displays all supported OBD2 PIDs to the terminal
+# Prints all supported OBD2 PIDs in hexadecimal to the terminal.
 def display_all_supported():
     supported = find_all_supported()
     if supported:
