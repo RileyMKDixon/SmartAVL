@@ -27,7 +27,7 @@ def extract_speed(msg):
 
 
 def extract_rpm(msg):
-    return int.from_bytes(msg.data[3:4], byteorder='big') / 4
+    return int.from_bytes(msg.data[3:5], byteorder='big') / 4
 
 
 def extract_fuel_tank_level(msg):
