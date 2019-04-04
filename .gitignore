@@ -73,6 +73,7 @@ Raspberry Pi/pi_bt_server/.vscode
 Raspberry Pi/pi_gps/.vscode
 Android/SmartAVL/.idea/caches/build_file_checksums.ser
 Android/SmartAVL/.idea/caches/gradle_models.ser
+Raspberry Pi/.idea
 
 #Google Maps API Key
 Android/SmartAVL/app/src/debug/res/values/google_maps_api.xml
