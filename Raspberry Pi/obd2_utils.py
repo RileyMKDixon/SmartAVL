@@ -49,4 +49,5 @@ def display_if_bus_is_responsive():
 
 
 if __name__ == "__main__":
+    bus.set_filters(obd2_filters)
     display_if_bus_is_responsive()
