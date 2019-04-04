@@ -20,12 +20,14 @@ import select
 
 class BluetoothServer(threading.Thread):
 	
-	BUFFER_SIZE = 2048
-
 	class WriteThread(threading.Thread):
+		#A predicate for the condition variable
 		def stringPresent(self):
 			return True if self.stringToSend is not None else False
 
+		#Do not call this function externally, it manages the internal syncronization
+		#Variables to ensure proper access.
+		#In future this could be buffered just like the reader is.
 		def asyncWrite(self):
 			with self.stringAvailable:
 				self.stringAvailable.wait_for(self.stringPresent)
@@ -53,11 +55,14 @@ class BluetoothServer(threading.Thread):
 			self.client_sock = client_sock
 			self.stringToSend = None
 
-
+		#When the thread starts, this function is run.
 		def run(self):
 			while self.continueRunning:
 				self.asyncWrite()
 
+		#If for some reason we want to stop running the BluetoothServer
+		#This will allow the python script to end gracefully
+		#By having this thread and its resources end naturally.
 		def stopRunning(self):
 			self.continueRunning = False #Allow our thread to exit normally
 			try:
@@ -67,10 +72,14 @@ class BluetoothServer(threading.Thread):
 			except RuntimeError:
 				print("Failed to notify lock") #If runtime error this is okay as it means the lock
 					#was never acquired.
-			
 	
-	#class ReadThread(threading.Thread):
-	#Like WriteThread, this function is too be called internally only
+	#-------------END INNER CLASSES----------------
+	
+	#This method should only be called internally as it manages the incoming message queue
+	#It has a 2 second timeout to ensure no indefinite blocking to allow the thread
+	#to coninue processing if needed. If the queue is full, we block until we can process the queue
+	#In reality, the queue should never get that full and this is left as a way to buffer
+	#communication. 
 	def asyncRead(self):
 		with self.queueNotFullCV:
 			self.queueNotFullCV.wait_for(self.queueNotFull)
@@ -79,34 +88,29 @@ class BluetoothServer(threading.Thread):
 				bytesReceived = self.client_sock.recv(2048)
 				stringReceived = bytesReceived.decode(sys.stdout.encoding)
 				self.RWqueue.put(stringReceived)
-				#print("RT: " + stringReceived)
-			
+	
+	#A predicate for the condition variable
 	def queueNotFull(self):
 		return not self.RWqueue.full()
 
+	#Function to be called externally. Returns the string received or
+	#None if there is nothing to be read.
 	def read(self):
 		if self.RWqueue.empty():
 			result = None
 		else:
 			result = self.RWqueue.get()
+			with self.queueNotFullCV:
+				self.queueNotFullCV.notify()
 		return result
-		
+	
+	#Use this method to write something to the connected device.
 	def write(self, msgToSend):
 		if(self.writer is None):
 			raise TypeError("Writer not initialized. Has BluetoothServer been started?")
 		if(not isinstance(msgToSend, str)):
 			raise TypeError("Passed Variable must be of type String")
 		self.writer.write(msgToSend)
-
-
-	#def run(self):
-	#	while self.continueRunning:
-	#		self.read()
-
-	#def stopRunning(self):
-	#	raise SystemExit
-
-	#-------------END INNER CLASSES----------------
 
 	def __init__(self):
 		threading.Thread.__init__(self)
@@ -125,27 +129,24 @@ class BluetoothServer(threading.Thread):
 		self.queueNotFullCV = threading.Condition()
 		self.writer = None
 
-	
+	#When the object thread starts running, this function is called.
 	def run(self):
 		while(self.continueRunning):
 			self.waitForConnection()
-			#self.reader = BluetoothServer.ReadThread(self.RWqueue, self.client_sock)
 			self.writer = BluetoothServer.WriteThread(self.client_sock)
 			self.writer.start()
-			#self.isConnected = True here instead of in waitForConnection()
 			while(self.isConnected and self.continueRunning):
 				try:
 					self.asyncRead()
 				except BluetoothError as bte:
 					print("Bluetooth Error Occurred")
 					traceback.print_tb(bte.__traceback__)
-					self.stopServer()
-					#self.continueRunning = True
+					self.stopServer() #Consider changing to closeConnection() if we want to try to recover a lost connection
 			if(self.continueRunning): #If we want to stop running, we have already closed everything.
 				self.closeConnection()
 		print("End main Thread run()")
 
-
+	#Wait to start the rest of the server until a connection is established.
 	def waitForConnection(self):
 		self.server_sock.listen(1)
 		self.Port = self.server_sock.getsockname()[1]
@@ -162,6 +163,8 @@ class BluetoothServer(threading.Thread):
 		print("Client connected: " + str(self.client_info))
 		self.isConnected = True
 	
+	#Closes the connection, but allows the server to remain running
+	#if stopServer() was not called.
 	def closeConnection(self):
 		self.client_sock.close()
 		self.server_sock.close()
@@ -172,49 +175,10 @@ class BluetoothServer(threading.Thread):
 		self.Port = None
 		self.writer = None
 
+	#Stops the server so that the threads can cleanly exit.
 	def stopServer(self):
 		self.continueRunning = False
 		self.closeConnection()
 	
 
-#newServer = BluetoothServer()
-#newServer.start()
-
-#while(not newServer.isConnected):
-#	time.sleep(0.5) #admittedly a hack to force the system to wait until a connection
-					#has been established
-#try:
-#	for i in range(1,1000000):
-#		newServer.write(str(i))
-#except Exception:
-#	print("Oops")
-#finally:
-#	#newServer.closeConnection()
-#	print("Stopping Server")
-#	newServer.stopServer()
-	
-#newServer.join()
-#print("Closed")
-
-# newServer = BluetoothServer()
-# newServer.start()
-# while(True):
-# 	newServer.waitForConnection()
-# 	while(newServer.isConnected):
-# 		try:
-# 			bytesReceived = newServer.client_sock.recv(newServer.BUFFER_SIZE)
-# 			stringReceived = bytesReceived.decode(sys.stdout.encoding)
-# 			if(len(stringReceived) == 0):
-# 				break
-# 			print("Client sent: " + str(stringReceived))
-# 			newServer.client_sock.send(stringReceived.encode(sys.stdout.encoding))
-# 		except BluetoothError as bte:
-# 			print("Bluetooth error occured")
-# 			traceback.print_tb(bte.__traceback__)
-# 			newServer.isConnected = False
-			
-# 	newServer.closeConnection()
-
-			
-	
 	

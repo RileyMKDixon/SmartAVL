@@ -1,3 +1,9 @@
+#Author: Riley Dixon
+#A test script for the Raspberry Pi Bluetooth Server class.
+#Sets up how the server should be initialized and how to interact
+#With the methods of the BluetoothServer class.
+
+
 from btServer import BluetoothServer
 import time
 import threading

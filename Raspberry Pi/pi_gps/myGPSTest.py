@@ -1,5 +1,8 @@
+#Author: Riley Dixon
 #Simple script to test gpsClass and to verify that is does infact
-#run asyncronously from the main thread.
+#run asyncronously from the main thread. This runs the reader and writer
+#asyncronously and has the calling terminal window as both the reader and
+#the writer.
 import time
 from gpsClass import SmartAVLGPS
 

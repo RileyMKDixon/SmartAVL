@@ -68,10 +68,9 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
-<<<<<<< HEAD
 
 Raspberry Pi/pi_bt_server/.vscode
-=======
+Raspberry Pi/pi_gps/.vscode
 Android/SmartAVL/.idea/caches/build_file_checksums.ser
 Android/SmartAVL/.idea/caches/gradle_models.ser
 
@@ -79,7 +78,6 @@ Android/SmartAVL/.idea/caches/gradle_models.ser
 Android/SmartAVL/app/src/debug/res/values/google_maps_api.xml
 Android/SmartAVL/app/src/release/res/values/google_maps_api.xml
 Android/SmartAVL/.idea/workspace.xml
->>>>>>> 530694ac2f0f368deb864895fd782681fd417948
 Android/SmartAVL/app/src/main/res/values/google_maps_api.xml
 Android/SmartAVL/.idea/caches/build_file_checksums.ser
 Android/SmartAVL/.idea/caches/gradle_models.ser

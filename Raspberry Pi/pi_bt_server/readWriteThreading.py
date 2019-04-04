@@ -1,3 +1,8 @@
+#Author: Riley Dixon
+#A testing python script for ensuring ReadWrite Communication within a single
+#terminal window. This makes use of Condition Variables so not to busy wait
+#the process. Left in for testing development purposes.
+
 import os
 import threading
 import queue
