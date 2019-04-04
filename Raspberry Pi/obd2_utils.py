@@ -31,3 +31,22 @@ def send_obd2_request(pid):
 # Receives an OBD2 response from the CAN bus.
 def get_obd2_response():
     return bus.recv(CAN_TIMEOUT)  # any message received by the CAN bus is a valid OBD2 response as per filters
+
+
+# Tests if the default CAN bus is responsive to OBD2 queries.
+def is_bus_responsive():
+    send_obd2_request(0x00)
+    msg = get_obd2_response()
+    return msg is not None
+
+
+# Displays whether or not the bus is responsive
+def display_if_bus_is_responsive():
+    if is_bus_responsive():
+        print("The CAN bus successfully responds to OBD2 queries!")
+    else:
+        print("The CAN bus is unresponsive to OBD2 queries.")
+
+
+if __name__ == "__main__":
+    display_if_bus_is_responsive()
