@@ -22,7 +22,7 @@ def transmit_stats(stats):
 def obd2_log_until_bus_stops_responding():
     supported_pids = find_all_supported()
     while is_bus_responsive():
-        stat_snapshot = obd2_stats.get_stats(obd2_stats.DESRIRED_PIDS, supported_pids)
+        stat_snapshot = obd2_stats.get_stats(obd2_stats.DESIRED_PIDS, supported_pids)
         transmit_stats(stat_snapshot)
 
 
