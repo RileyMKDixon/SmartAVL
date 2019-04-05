@@ -100,8 +100,8 @@ class BluetoothServer(threading.Thread):
 			result = None
 		else:
 			result = self.RWqueue.get()
-			with self.queueNotFullCV:
-				self.queueNotFullCV.notify()
+			#with self.queueNotFullCV:
+			#	self.queueNotFullCV.notify()
 		return result
 	
 	#Use this method to write something to the connected device.
