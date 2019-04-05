@@ -20,6 +20,9 @@ DESIRED_PIDS = [PID_SPEED, PID_RPM, PID_FUEL_TANK_LEVEL, PID_FUEL_PRESSURE,
 
 # Extracts relevant data from a CAN bus message given the OBD2 PID.
 def extract_data(msg, pid):
+    if msg is None:
+        return
+
     if pid == PID_MONITOR_STATUS:
         return extract_monitor_status(msg)
     if pid == PID_COOLANT_TEMP:
