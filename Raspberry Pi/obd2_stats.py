@@ -13,6 +13,10 @@ PID_FUEL_TANK_LEVEL = 0x2F
 PID_DISTANCE_SINCE_CLEAR = 0x31
 PID_OIL_TEMP = 0x5C
 
+DESIRED_PIDS = [PID_SPEED, PID_RPM, PID_FUEL_TANK_LEVEL, PID_FUEL_PRESSURE,
+                PID_OIL_TEMP, PID_DISTANCE_SINCE_CLEAR, PID_MONITOR_STATUS,
+                PID_COOLANT_TEMP]
+
 
 # Extracts relevant data from a CAN bus message given the OBD2 PID.
 def extract_data(msg, pid):
@@ -91,11 +95,8 @@ def get_stats(desired, supported):
 # Gets OBD2 statistics from the vehicle.
 # Returns a dictionary keyed by PID.
 def get_desired_stats():
-    desired = [PID_SPEED, PID_RPM, PID_FUEL_TANK_LEVEL, PID_FUEL_PRESSURE,
-               PID_OIL_TEMP, PID_DISTANCE_SINCE_CLEAR, PID_MONITOR_STATUS,
-               PID_COOLANT_TEMP]
-    supported = find_all_supported()
-    return get_stats(desired, supported)
+    supported_pids = find_all_supported()
+    return get_stats(DESIRED_PIDS, supported_pids)
 
 
 if __name__ == "__main__":
