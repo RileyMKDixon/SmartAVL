@@ -79,7 +79,7 @@ public class VehicleData {
      * Sets the VIN of the vehicle
      * @param vin
      */
-    public static void setMake(String vin) {
+    public static void setVIN(String vin) {
         vehicleVIN = vin;
     }
 
