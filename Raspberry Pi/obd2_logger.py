@@ -3,11 +3,29 @@
 
 from obd2_supported import *
 from bt_server import BluetoothServer
+from avl_gps import SmartAVLGPS
 import obd2_stats
 import time
 import json
 
 bt = BluetoothServer()
+gps = SmartAVLGPS(1)
+
+
+# Halts program execution until the GPS begins reporting data
+def start_avl_gps():
+    gps.start()
+    while gps.get_data() is None:
+        pass
+
+
+# Returns latitude and longitude from GPS module
+def get_coords_from_gps():
+    d = gps.get_data()
+    if d is not None:
+        return {"lat": d[1], "long": d[2]}
+    else:
+        return {}
 
 
 # Halts program execution until a Bluetooth connection is made
@@ -35,6 +53,11 @@ def obd2_log_until_bus_stops_responding():
     supported_pids = find_all_supported()
     while is_bus_responsive():
         stat_snapshot = obd2_stats.get_stats(obd2_stats.DESIRED_PIDS, supported_pids)
+
+        coords = get_coords_from_gps()
+        for k in coords.keys():
+            stat_snapshot[k] = coords[k]  # merge coords dict into stat_snapshot dict
+
         transmit_stats(stat_snapshot)
 
 
@@ -45,6 +68,22 @@ def obd2_log():
         obd2_log_until_bus_stops_responding()
 
 
+# Test function with dummy data
+def test_dummy_data():
+    stat_snapshot = {
+        0x0D: 0,
+        0x0C: 885,
+        0x01: 0
+    }
+    coords = get_coords_from_gps()
+    for k in coords.keys():
+        stat_snapshot[k] = coords[k]  # merge coords dict into stat_snapshot dict
+
+    transmit_stats(stat_snapshot)
+
+
 if __name__ == "__main__":
+    start_avl_gps()
     start_bluetooth_server()
-    obd2_log()
+    # obd2_log()
+    test_dummy_data()
