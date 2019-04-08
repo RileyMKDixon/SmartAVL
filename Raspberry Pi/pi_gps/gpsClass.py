@@ -20,7 +20,7 @@ class SmartAVLGPS(threading.Thread):
 	#all other values will raise an error
 	#this may only be set at the creation of the object.
 	def __init__(self, connection_type):
-		if(connection_type != 0 or connection_type != 1):
+		if connection_type not in [0, 1]:
 			raise ValueError("Connection Type must be 0 for Serial or 1 for USB")
 		threading.Thread.__init__(self)
 		self.connection_type = connection_type #Is the connection made via GPIO pins or USB
