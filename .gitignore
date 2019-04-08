@@ -16,6 +16,7 @@ out/
 # Gradle files
 .gradle/
 build/
+/*/build/
 Android/SmartAVL/.gradle/
 Android/SmartAVL/build/
 
@@ -45,6 +46,17 @@ Android/SmartAVL/*.iml
 Android/SmartAVL/.idea/workspace.xml
 Android/SmartAVL/.idea/tasks.xml
 Android/SmartAVL/.idea/libraries
+Android/SmartAVL/.idea/.name
+Android/SmartAVL/.idea/compiler.xml
+Android/SmartAVL/.idea/copyright/profiles_settings.xml
+Android/SmartAVL/.idea/encodings.xml
+Android/SmartAVL/.idea/misc.xml
+Android/SmartAVL/.idea/modules.xml
+Android/SmartAVL/.idea/scopse/scope_settings.xml
+Android/SmartAVL/.idea/vcs.xml
+Android/SmartAVL/*.iml
+Android/SmartAVL/.idea/caches/build_file_checksums.ser
+Android/SmartAVL/.idea/caches/gradle_models.ser
 
 
 # Keystore files
@@ -78,7 +90,4 @@ Raspberry Pi/.idea
 #Google Maps API Key
 Android/SmartAVL/app/src/debug/res/values/google_maps_api.xml
 Android/SmartAVL/app/src/release/res/values/google_maps_api.xml
-Android/SmartAVL/.idea/workspace.xml
 Android/SmartAVL/app/src/main/res/values/google_maps_api.xml
-Android/SmartAVL/.idea/caches/build_file_checksums.ser
-Android/SmartAVL/.idea/caches/gradle_models.ser
