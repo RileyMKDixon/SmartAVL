@@ -68,22 +68,7 @@ def obd2_log():
         obd2_log_until_bus_stops_responding()
 
 
-# Test function with dummy data
-def test_dummy_data():
-    stat_snapshot = {
-        0x0D: 0,
-        0x0C: 885,
-        0x01: 0
-    }
-    coords = get_coords_from_gps()
-    for k in coords.keys():
-        stat_snapshot[k] = coords[k]  # merge coords dict into stat_snapshot dict
-
-    transmit_stats(stat_snapshot)
-
-
 if __name__ == "__main__":
     start_avl_gps()
     start_bluetooth_server()
-    # obd2_log()
-    test_dummy_data()
+    obd2_log()
