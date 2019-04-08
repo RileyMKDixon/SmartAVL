@@ -2,6 +2,7 @@ package ece492.smartavl.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import ece492.smartavl.R;
@@ -9,6 +10,7 @@ import ece492.smartavl.data.VehicleData;
 
 public class MainActivity extends MainNavigationActivity {
 
+    private TextView vin_title_textView;
     private TextView vin_textView;
     private TextView status_textView;
     private TextView speed_textView;
@@ -41,6 +43,7 @@ public class MainActivity extends MainNavigationActivity {
 
         navigation.setSelectedItemId(R.id.navigation_main);
 
+        vin_title_textView = findViewById(R.id.vin_title_textView);
         vin_textView = findViewById(R.id.vin_textView);
         status_textView = findViewById(R.id.status_textView);
         speed_textView = findViewById(R.id.speed_textView);
@@ -66,6 +69,10 @@ public class MainActivity extends MainNavigationActivity {
     }
 
     public void setVIN(String vin) {
+        if (!vin.equals("Unknown")){
+            vin_title_textView.setVisibility(View.VISIBLE);
+            vin_textView.setVisibility(View.VISIBLE);
+        }
         vin_textView.setText(vin);
         vin_textView.invalidate();
     }
