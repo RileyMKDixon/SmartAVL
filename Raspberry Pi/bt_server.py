@@ -140,8 +140,9 @@ class BluetoothServer(threading.Thread):
 					self.asyncRead()
 				except BluetoothError as bte:
 					print("Bluetooth Error Occurred")
-					traceback.print_tb(bte.__traceback__)
-					self.stopServer() #Consider changing to closeConnection() if we want to try to recover a lost connection
+					raise bte
+					#traceback.print_tb(bte.__traceback__)
+					#break #Consider changing to closeConnection() if we want to try to recover a lost connection
 			if(self.continueRunning): #If we want to stop running, we have already closed everything.
 				self.closeConnection()
 		print("End main Thread run()")
