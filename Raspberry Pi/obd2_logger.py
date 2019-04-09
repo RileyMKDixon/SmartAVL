@@ -15,6 +15,7 @@ gps = SmartAVLGPS(1)
 # Starts Adafruit GPS
 def start_avl_gps():
     gps.start()
+    time.sleep(0.5)
 
 
 # Returns latitude and longitude from GPS module
