@@ -62,6 +62,9 @@ def obd2_log_until_bus_stops_responding():
         transmit_stats(stat_snapshot)
         time.sleep(0.5)
 
+        while not bt.isConnected:
+            time.sleep(0.5)
+
 
 # Continually logs OBD2 statistics and enters an idle state while the CAN bus is unresponsive
 def obd2_log():
