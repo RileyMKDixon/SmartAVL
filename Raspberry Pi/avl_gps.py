@@ -35,7 +35,10 @@ class SmartAVLGPS(threading.Thread):
 		#Consider wrapping in a try-except block to reset the GPS.
 		self.connect_to_GPS_network()
 		while(True):
-			update_present = self.gps.update()
+			try:
+				update_present = self.gps.update()
+			except UnicodeDecodeError as UDerror:
+				print("Parse unicode failure, trying to update the GPS early?")
 			if update_present:
 				if self.gps.has_fix:
 					self.update_data()
