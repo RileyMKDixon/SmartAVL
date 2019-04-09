@@ -5,6 +5,7 @@ from obd2_utils import *
 from obd2_supported import find_all_supported
 
 PID_MONITOR_STATUS = 0x01
+PID_ENGINE_LOAD = 0x04
 PID_COOLANT_TEMP = 0x05
 PID_FUEL_PRESSURE = 0x0A
 PID_RPM = 0x0C
@@ -14,9 +15,18 @@ PID_FUEL_TANK_LEVEL = 0x2F
 PID_DISTANCE_SINCE_CLEAR = 0x31
 PID_OIL_TEMP = 0x5C
 
-DESIRED_PIDS = [PID_SPEED, PID_RPM, PID_FUEL_TANK_LEVEL, PID_FUEL_PRESSURE,
-                PID_OIL_TEMP, PID_DISTANCE_SINCE_CLEAR, PID_MONITOR_STATUS,
-                PID_COOLANT_TEMP, PID_RUN_TIME]
+DESIRED_PIDS = [
+    PID_MONITOR_STATUS,
+    PID_ENGINE_LOAD,
+    PID_COOLANT_TEMP,
+    PID_FUEL_PRESSURE,
+    PID_RPM,
+    PID_SPEED,
+    PID_RUN_TIME,
+    PID_FUEL_TANK_LEVEL,
+    PID_DISTANCE_SINCE_CLEAR,
+    PID_OIL_TEMP
+]
 
 
 # Extracts relevant data from a CAN bus message given the OBD2 PID.
@@ -26,6 +36,8 @@ def extract_data(msg, pid):
 
     if pid == PID_MONITOR_STATUS:
         return extract_monitor_status(msg)
+    if pid == PID_ENGINE_LOAD:
+        return extract_engine_load(msg)
     if pid == PID_COOLANT_TEMP:
         return extract_coolant_temp(msg)
     if pid == PID_FUEL_PRESSURE:
@@ -48,6 +60,10 @@ def extract_data(msg, pid):
 # Returns 1 if check engine light is on, and 0 otherwise.
 def extract_monitor_status(msg):
     return int(msg.data[3]) >> 7
+
+
+def extract_engine_load(msg):
+    return 100 / 255 * int(msg.data[3])
 
 
 # Extracts coolant temperature from a CAN message (PID 0x05).
