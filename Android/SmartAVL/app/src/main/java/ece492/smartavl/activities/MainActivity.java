@@ -160,7 +160,7 @@ public class MainActivity extends MainNavigationActivity {
             latitude_textView.invalidate();
             return true;
         }
-        latitude_textView.setText(String.valueOf(latitude));
+        latitude_textView.setText("".format("%.05f", String.valueOf(latitude)));
         latitude_textView.invalidate();
         return true;
     }
@@ -171,7 +171,7 @@ public class MainActivity extends MainNavigationActivity {
             longitude_textView.invalidate();
             return true;
         }
-        longitude_textView.setText(String.valueOf(longitude));
+        longitude_textView.setText("".format("%.05f", String.valueOf(longitude)));
         longitude_textView.invalidate();
         return true;
     }

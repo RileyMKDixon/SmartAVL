@@ -113,8 +113,8 @@ public class MapsActivity extends MainNavigationActivity implements OnMapReadyCa
             return;
         }
         marker.setPosition(location);
-        latitudeTextView.setText(String.valueOf(lat));
-        longitudeTextView.setText(String.valueOf(lon));
+        latitudeTextView.setText("".format("%.05f", String.valueOf(lat)));
+        longitudeTextView.setText("".format("%.05f", String.valueOf(lon)));
         latitudeTextView.invalidate();
         longitudeTextView.invalidate();
         if (moveCamera) {
