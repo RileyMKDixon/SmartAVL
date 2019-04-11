@@ -12,11 +12,10 @@ bt = BluetoothServer()
 gps = SmartAVLGPS(1)
 
 
-# Halts program execution until the GPS begins reporting data
+# Starts Adafruit GPS
 def start_avl_gps():
     gps.start()
-    while gps.get_data() is None:
-        pass
+    time.sleep(0.5)
 
 
 # Returns latitude and longitude from GPS module
@@ -47,6 +46,8 @@ def transmit_stats(stats):
     j = json.dumps(stats)
     bt.write(j)
 
+    print(j)
+
 
 # Logs and transmits OBD2 statistics until the CAN bus stops responding
 def obd2_log_until_bus_stops_responding():
@@ -59,6 +60,10 @@ def obd2_log_until_bus_stops_responding():
             stat_snapshot[k] = coords[k]  # merge coords dict into stat_snapshot dict
 
         transmit_stats(stat_snapshot)
+        time.sleep(0.5)
+
+        while not bt.isConnected:
+            time.sleep(0.5)
 
 
 # Continually logs OBD2 statistics and enters an idle state while the CAN bus is unresponsive
